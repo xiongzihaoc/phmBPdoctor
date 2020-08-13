@@ -1,0 +1,55 @@
+<view style="padding:30rpx;box-sizing: border-box;">
+	<!-- 起始时间 结束时间 -->
+	<view class="weui-search-bar">
+		<view class="weui-search-bar__form">
+			<!-- 搜索框 -->
+			<view class="weui-search-bar__box searchInput">
+				<icon class="weui-icon-search_in-box" type="search" size="24"></icon>
+				<input bindinput="bindinputSearch" type="text" class="weui-search-bar__input" placeholder="按时间搜索" readonly="readonly" />
+			</view>
+		</view>
+	</view>
+	<!-- 循环维护详情列表 -->
+	<view class="questionnaire  commonStyle">
+		<view class="questionImg">
+			<text class="fontWeight quesRecord maintainRecord">问题记录</text>
+		</view>
+		<!-- 循环卡片 -->
+		<block wx:for="{{historyQues}}" wx:key="id">
+			<view class="content">
+				<!-- 状态 -->
+				<view class="commonStyle">
+					<text>状态：</text>
+					<text wx:if="{{Matter.state == 1}}" class="fontWeight">已解决</text>
+					<text wx:else style="color:#FDBD2F;" class="fontWeight">未解决</text>
+				</view>
+				<!-- 症状 -->
+				<view class="commonStyle" style="margin:10rpx 0">
+					<text>症状：</text>
+					<text class="fontWeight">{{item.symptom}}</text>
+				</view>
+				<!-- 描述 -->
+				<view class="commonStyle" style="margin-bottom:10rpx">
+					<text>描述：</text>
+					<text class="fontWeight">{{item.describe}}</text>
+				</view>
+				<!-- 描述 -->
+				<view class="commonStyle">
+					<text>记录时间：</text>
+					<text class="fontWeight">{{item.createTime}}</text>
+				</view>
+				<!-- 问题图片 -->
+				<view class="questionImg">
+					<block wx:if="{{Matter.appendix.length>0}}" wx:for="{{Matter.appendix}}" wx:key="item">
+						<image src="{{item.photoUrl}}"></image>
+					</block>
+				</view>
+			</view>
+		</block>
+
+		<view>
+		</view>
+	</view>
+
+
+</view>

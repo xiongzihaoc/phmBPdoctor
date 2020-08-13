@@ -1,0 +1,23 @@
+{
+  "name": "miniprogram-5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiongzihaoc/phmMiniProgram_doctor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiongzihaoc/phmMiniProgram_doctor/issues"
+  },
+  "homepage": "https://github.com/xiongzihaoc/phmMiniProgram_doctor#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.4.3",
+    "lin-ui": "^0.8.5"
+  }
+}

@@ -1,0 +1,38 @@
+<view style="padding:30rpx;box-sizing: border-box;">
+	<view class="weui-search-bar">
+		<view class="weui-search-bar__form">
+			<!-- 搜索框 -->
+			<view class="weui-search-bar__box searchInput">
+				<icon class="weui-icon-search_in-box" type="search" size="24"></icon>
+				<input bindinput="bindinputSearch" type="text" class="weui-search-bar__input" placeholder="请输入患者名称" />
+			</view>
+		</view>
+	</view>
+	<!-- 患者列表 -->
+	<block wx:for="{{patientList}}" wx:key="id">
+		<view class="patientBlock" data-patientmessage="{{item}}" bindtap="patientListTap">
+			<!-- 患者头像 -->
+			<view class="patientImage">
+				<image src="{{item.portrait}}" class="patientImg"></image>
+			</view>
+			<!-- 患者姓名 -->
+			<view style="padding: 4rpx 0 0 30rpx;box-sizing: border-box;">
+				<view class="patientName">{{item.name}}</view>
+				<view style="display:flex;">
+					<view class="setSave">
+						<text class="patientName_ques">随访设置：</text>
+						<image wx:if="{{item.isMatter == 0}}" class="closeImg" src="../../images/close.png"></image>
+						<image wx:else class="closeImg" src="../../images/right.png"></image>
+					</view>
+					<view class="setSave">
+						<text class="patientName_ques"
+					style="margin-left:20rpx;">问题记录：</text>
+						<image wx:if="{{item.isRequire == 0}}" class="closeImg" src="../../images/close.png"></image>
+						<image wx:else class="closeImg" src="../../images/right.png"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<loadmore show="{{loadmoreShow}}" type="{{loadmoreType}}" loading-text="加载中,请稍后..." end-text="我是有底线的" line="{{true}}"></loadmore>
+</view>

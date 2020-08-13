@@ -1,0 +1,89 @@
+.weui-search-bar {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.weui-search-bar__form {
+  border-radius: 40rpx !important;
+}
+
+.weui-icon-search_in-box {
+  position: absolute;
+  left: 40rpx;
+  top: 5rpx;
+}
+
+.weui-search-bar__input {
+  padding-left: 40rpx;
+}
+
+.weui-search-bar__form {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+  flex: auto;
+  border-radius: 5px;
+  padding: 14rpx 0;
+  background: #F5F5F5;
+  border: 1px solid #E6E6EA;
+}
+
+.weui-search-bar__box {
+  position: relative;
+  padding-left: 60rpx;
+  padding-right: 60rpx;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.weui-search-bar__input {
+  height: 56rpx;
+  line-height: 56rpx;
+}
+
+.patientBlock {
+  display: flex;
+  padding: 20rpx 20rpx 14rpx 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+}
+
+.patientBlock:last-child {
+  border: none;
+}
+
+.patientImg {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+}
+
+.patientName {
+  display: block;
+  margin: 10rpx 0 6rpx 0;
+  font-family: PingFang SC;
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #1B1200;
+}
+
+.patientName_ques {
+  font-size: 24rpx;
+}
+
+.closeImg {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.setSave {
+  display: flex;
+  align-items: center;
+}

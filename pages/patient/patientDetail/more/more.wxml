@@ -1,0 +1,38 @@
+<view style="padding:30rpx;box-sizing: border-box;">
+	<!-- 起始时间 结束时间 -->
+	<view class="weui-search-bar">
+		<view class="weui-search-bar__form">
+			<!-- 搜索框 -->
+			<view class="weui-search-bar__box searchInput">
+				<icon class="weui-icon-search_in-box" type="search" size="24"></icon>
+				<input bindinput="bindinputSearch" type="text" class="weui-search-bar__input" placeholder="按时间搜索" readonly="readonly" />
+			</view>
+		</view>
+	</view>
+	<!-- 循环维护详情列表 -->
+	<view class="questionnaire  commonStyle">
+		<view class="questionImg">
+			<text class="fontWeight quesRecord maintainRecord">报告单</text>
+		</view>
+		<!-- 循环卡片 -->
+		<block wx:for="{{reportList}}" wx:key="item">
+			<view class="content">
+				<view>
+					<text>添加时间：</text>
+					<text class="fontWeight">{{item.dateStr}}</text>
+				</view>
+				<!-- 报告单图片 -->
+				<view class="questionImg">
+					<block wx:if="{{item.medicalReports.length > 0}}" wx:for="{{item.medicalReports}}" wx:for-item="subItem" wx:key="item">
+						<image src="{{subItem.reportUrl}}"></image>
+					</block>
+				</view>
+			</view>
+		</block>
+
+		<view>
+		</view>
+	</view>
+
+
+</view>
