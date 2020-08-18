@@ -1,23 +1,13 @@
-// pages/message/index.js
+// pages/message/chat/chat.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    messageList: [
-      { name: "王俊生", id: 1 },
-      { name: "施工井", id: 2 },
-      { name: "李白", id: 3 },
-      { name: "李清照", id: 4 },
-    ]
+
   },
-  // 点击该患者聊天
-  goChat:function(){
-    wx.navigateTo({
-      url: '/pages/message/chat/chat',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -36,18 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // wx.setStorageSync('openId', 'oHaMa4w3GPBzUlb_8m9j9zPlyhqI');
-    // let openId = wx.getStorageSync('openId');
-    // if (openId) {
-    //   wx.switchTab({
-    //     url: '/pages/message/index',
-    //   })
-    // } else {
-    //   wx.clearStorage();
-    //   wx.navigateTo({
-    //     url: '/pages/Authorization/index',
-    //   })
-    // }
+
   },
 
   /**
