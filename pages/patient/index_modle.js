@@ -3,13 +3,15 @@ class Patient extends Comm {
   constructor() {
     super();
   }
-  getUserInfo(doctorUuid,name,callback) {
+  getUserInfo(doctorUuid, name, pageNum, pageSzie, callback) {
     let props = {
       url: "/api/getBindPatients",
       contentType: 'application/json',
       data: {
         "doctorUuid": doctorUuid,
-        "name": name
+        "name": name,
+        "pageNum": pageNum,
+        "pageSize": pageSzie
       },
       sCallBack: res => {
         wx.hideLoading();

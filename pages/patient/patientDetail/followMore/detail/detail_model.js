@@ -5,12 +5,12 @@ class FollowMore extends Comm {
   constructor() {
     super();
   }
-  getFollowInfoNum(patientUuid, callback) {
+  getFollowInfoNum(anUuid, callback) {
     let props = {
-      url: "/api/getQuestionnaire",
+      url: "/api/doctor/getQuestionInfo",
       contentType: 'application/json',
       data: {
-        "patientUuid": patientUuid,
+        anUuid:anUuid
       },
       sCallBack: res => {
         wx.hideLoading();

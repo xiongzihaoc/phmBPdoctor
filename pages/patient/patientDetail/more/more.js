@@ -9,10 +9,6 @@ Page({
   data: {
     id: "",
     reportList: [],
-    pageNum: 1000,
-    pageSize: 1000,
-    startDate: "2010-10-07",
-    endDate: "2020-10-01",
   },
   // 获取报告单信息
   getReportInfo: function () {
@@ -21,11 +17,9 @@ Page({
     });
     ReportInfo.getReportInfo(this.data.id, (res) => {
       console.log(res);
-
       this.setData({
         reportList: res,
       })
-
     });
   },
   /**

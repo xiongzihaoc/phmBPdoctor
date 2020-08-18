@@ -8,10 +8,10 @@
 			<view class="detail">
 				<image src="/images/finish.png"></image>
 				<view style="margin-left:10rpx;">
-					<text class="detail_title">抑郁量表</text>
-					<text class="detail_time">得分：56</text>
-					<text class="detail_time">评语：轻度抑郁</text>
-					<text class="detail_time">完成时间：2010-10-01</text>
+					<text class="detail_title">{{userInfoObj.qunaireName}}</text>
+					<text class="detail_time">得分：{{userInfoObj.qunaireScore}}</text>
+					<text class="detail_time">评语：{{userInfoObj.qunaireComment}}</text>
+					<text class="detail_time">完成时间：{{userInfoObj.createTime}}</text>
 
 				</view>
 			</view>
@@ -24,16 +24,18 @@
 			<text class="title_w">答题详情</text>
 		</view>
 		<view class="isFinish_content">
-
-			<view class="detail">
-				<view style="margin-left:10rpx;">
-					<view style="display:flex">
-						<text class="detail_title detail-ques">题目：</text>
-						<text class="detail_title detail-content">1.我觉得自己是个有用的人，有很多人都需要我。</text>
+			<block wx:for="{{detailLsit}}" wx:key="id">
+				<view class="detail">
+					<view style="margin-left:10rpx;">
+						<view style="display:flex">
+							<text class="detail_title detail-ques">题目：{{index+1}}.</text>
+							<text class="detail_title detail-content">{{item.quTitle}}</text>
+						</view>
+						<text class="detail_time">答案：{{item.anContent}}</text>
 					</view>
-					<text class="detail_time">答案：没有很少</text>
 				</view>
-			</view>
+			</block>
+
 
 		</view>
 	</view>

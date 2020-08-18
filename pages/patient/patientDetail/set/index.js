@@ -1,4 +1,6 @@
 // pages/patient/patientDetail/set/index.js
+import { Save } from "./index.modle"
+let saveInfo = new Save();
 Page({
 
   /**
@@ -18,10 +20,64 @@ Page({
       url: '/pages/patient/patientDetail/set/addWenjuan/add/add',
     })
   },
+  // 修改套餐
+  edit: function (e) {
+    let that = this
+    var index = e.currentTarget.dataset.info
+    console.log(index);
 
+    var editTac = that.data.packagesList[index]
+    wx.navigateTo({
+      url: '/pages/patient/patientDetail/set/addWenjuan/add/add?editId=' + "1&editIndex=" + index,
+    })
+  },
   // 保存套餐
-  btnSaveCombo:function(){
-    
+  btnSaveCombo: function () {
+    if (this.data.packagesList.length <= 0) {
+      wx.showToast({
+        title: '请选择套餐',
+        icon: "none",
+      })
+      return;
+    } else {
+      var patientUuid = wx.getStorageSync('patientUuid')
+      var packagesList = this.data.packagesList
+      var taocArr = []
+      packagesList.forEach((item) => {
+        var questionnaireList = []
+        var infoObj = {}
+        item.sheetList.forEach((subItem) => {
+          infoObj = {
+            questionnaireUuid: subItem.uuid,
+            questionnaireName: subItem.name
+          }
+          questionnaireList.push(infoObj)
+        })
+        // 转成接口需要的格式
+        var obj = {
+          followUpTime: item.time,
+          patientUuid: patientUuid,
+          questionnaireList: questionnaireList
+        }
+        taocArr.push(obj)
+      })
+      wx.showLoading({
+        title: '加载中...',
+      });
+      saveInfo.btnSaveCombo(taocArr, res => {
+        if (res.code == 200) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        } else {
+          wx.showToast({
+            title: '保存失败,请重新选择',
+            icon: "none"
+          })
+        }
+
+      });
+    }
 
   },
   /**
@@ -44,14 +100,6 @@ Page({
   onShow: function () {
     let that = this
     console.log(this.data.packagesList);
-    
-    // var taocList = []
-    // if (that.data.checkedList != undefined) {
-    //   taocList.push(that.data.checkedList)
-    //   this.setData({
-    //     taocList: taocList
-    //   })
-    // }
 
   },
 

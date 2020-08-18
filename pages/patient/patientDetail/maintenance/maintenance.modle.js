@@ -4,12 +4,14 @@ class Maint extends Comm {
   constructor() {
     super();
   }
-  getMaintInfo(patientUuid, callback) {
+  getMaintInfo(patientUuid, createTime, endTime, callback) {
     let props = {
       url: "/api/getMaintain",
       contentType: 'application/json',
       data: {
         "patientUuid": patientUuid,
+        "actualTime": createTime,
+        "endTime": endTime,
         pageNum: 1000,
         pageSize: 1000,
       },

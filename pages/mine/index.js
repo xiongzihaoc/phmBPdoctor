@@ -1,4 +1,5 @@
 // pages/mine/index.js
+var QRCode = require('../../utils/weapp-qrcode')
 import { RegModle } from './index.modle'
 let RegModleInfo = new RegModle();
 const app = new getApp();
@@ -8,30 +9,39 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,
     userName: '',
-    headerUrl:"",
+    headerUrl: "",
     isLogin: false,
     List: [
       { id: 1, name: "个人信息", icon: "iconfont icon-gerenxinxi" },
       { id: 2, name: "二维码", icon: "iconfont icon-ico" },
     ],
   },
-
+  // 跳转个人信息
   bindJumpUserInfo: function (e) {
     wx.navigateTo({
       url: '/pages/mine/userInfo/userInfo',
     })
   },
-  bindJumpErweima: function (e) {
-    wx.navigateTo({
-      url: '/pages/mine/userInfo/userInfo',
+  // 查看二维码
+  viewErweima: function () {
+    this.setData({
+      show: true,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var openId = wx.getStorageSync('openId')
+    QRCode = new QRCode('canvas', {
+      // usingIn: this,
+      text: openId,
+      colorDark: "#000",
+      colorLight: "white",
+      correctLevel: QRCode.CorrectLevel.H,
+    });
   },
 
   /**

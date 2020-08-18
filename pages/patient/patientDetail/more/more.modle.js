@@ -10,6 +10,8 @@ class Report extends Comm {
       contentType: 'application/json',
       data: {
         "patientUuid": patientUuid,
+        pageNum: 1000,
+        pageSize: 1000,
       },
       sCallBack: res => {
         wx.hideLoading();

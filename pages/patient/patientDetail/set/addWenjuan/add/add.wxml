@@ -1,15 +1,18 @@
 <view class="box">
 	<view class="time">
-		<view>推送时间</view>
+		<view>
+		<text class="iconfont iconriqixuanze" style="margin-right:10rpx;"></text>
+		<text>推送时间</text>
+		</view>
 		<picker mode="date" value="{{date}}" start="1970-09-01" end="2100-09-01" bindchange="bindDateChange">
-			<view class="picker">
+			<view class="picker" style="color:#A8A8A8;font-szie:30rpx;font-weight:400">
 				{{date}}
 			</view>
 		</picker>
 	</view>
 	<view class="questionImg">
 		<view>
-			<text class="fontWeight quesRecord maintainRecord">选择问卷</text>
+			<text class="quesRecord">选择问卷</text>
 		</view>
 		<view class="weui-search-bar">
 			<view class="weui-search-bar__form">

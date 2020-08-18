@@ -8,6 +8,9 @@ Page({
    */
   data: {
     id: "",
+    name:"",
+    userInfoObj:{},
+    detailLsit:[],
   },
   // 获取数量
   getFollowInfoNum: function () {
@@ -16,14 +19,21 @@ Page({
     });
     FollowMoreInfo.getFollowInfoNum(this.data.id, (res) => {
       console.log(res);
+      
+      this.setData({
+        userInfoObj:res.result,
+        detailLsit:res.anserInfo
+      })
     });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.name);
     this.setData({
-      id: options.id
+      id: options.id,
+      name:options.name
     })
 
     this.getFollowInfoNum()

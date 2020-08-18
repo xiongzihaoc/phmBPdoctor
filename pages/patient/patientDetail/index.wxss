@@ -92,11 +92,12 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-    /* justify-content: flex-start; */
+  /* justify-content: flex-start; */
 }
 
 .questionImg image {
-  margin: 10rpx;
+  margin: 10rpx 0;
+  margin-left: 10rpx;
   box-sizing: border-box;
   border-radius: 10rpx;
   width: 144rpx;
@@ -137,7 +138,7 @@
 
 .report {
   border-radius: 30rpx;
-  padding: 20rpx 30rpx 14rpx 30rpx;
+  padding: 20rpx 20rpx 14rpx 30rpx;
   box-sizing: border-box;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
 }
@@ -150,7 +151,7 @@
 }
 
 .reportImg image {
-  margin-left: 20rpx;
+  margin-left: 10rpx;
   box-sizing: border-box;
   border-radius: 20rpx;
   width: 144rpx;

@@ -6,12 +6,16 @@
 				<view>
 					<text>套餐{{index + 1}}</text>
 				</view>
-				<view class="edit">
+				<view class="edit" data-info="{{index}}" bindtap="edit">
 					<text>修改问卷</text>
 					<text class="iconfont iconarrow"></text>
 				</view>
 			</view>
 			<view class="tcao_content_box">
+				<view class="time">
+					<text>推送时间：</text>
+					<text>{{item.time}}</text>
+				</view>
 				<block wx:for="{{item.sheetList}}" wx:key="id" wx:for-item="sheetItem">
 					<view class="tcao_content_main">
 						<image src="/images/finish_is.png"></image>

@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startDate: "2010-10-07",
-    endDate: "2020-10-01",
+    startDate: "2020-01-01",
+    endDate: "2030-01-01",
     historyQues: [],
   },
   // 获取问题信息
@@ -16,28 +16,29 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    MatterInfo.getMatterInfo(this.data.id,this.data.startDate,this.data.endDate,(res) => {
+    MatterInfo.getMatterInfo(this.data.id, this.data.startDate, this.data.endDate, (res) => {
       console.log(res);
-
       this.setData({
         historyQues: res
       })
 
     });
   },
-  // 选择时间区间
-  bindStartChange(e) {
-    this.setData({
-      startDate: e.detail.value
-    })
-
-  },
-  bindEndChange(e) {
-    this.setData({
-      endDate: e.detail.value
+  // 时间段选择  
+  bindDateChange(e) {
+    let that = this;
+    console.log(e.detail.value)
+    that.setData({
+      startDate: e.detail.value,
     })
     this.getMatterInfo()
-
+  },
+  bindDateChange2(e) {
+    let that = this;
+    that.setData({
+      endDate: e.detail.value,
+    })
+    this.getMatterInfo()
   },
   /**
    * 生命周期函数--监听页面加载

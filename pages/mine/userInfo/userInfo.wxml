@@ -1,18 +1,14 @@
 <view class="box">
 	<view class="infoList">
 		<text class="fontWeight">姓名</text>
-		<text class="fontColor">{{userInfo.hight}}cm</text>
+		<text class="fontColor">{{userInfo.name}}</text>
 	</view>
 	<view class="infoList">
 		<text class="fontWeight">性别</text>
-		<text class="fontColor">{{userInfo.weight}}kg</text>
+		<text class="fontColor">{{userInfo.gender}}</text>
 	</view>
-  	<view class="infoList">
+	<view class="infoList">
 		<text class="fontWeight">联系电话</text>
-		<text class="fontColor">{{userInfo.weight}}kg</text>
-	</view>
-  	<view class="infoList">
-		<text class="fontWeight">医院</text>
-		<text class="fontColor">{{userInfo.weight}}kg</text>
+		<text class="fontColor">{{userInfo.phone}}</text>
 	</view>
 </view>

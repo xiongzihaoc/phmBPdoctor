@@ -24,7 +24,7 @@ Page({
       title: '加载中...',
     });
     AddInfo.getWenJuanList(this.data.name, (res) => {
-      console.log(res);
+      wx.setStorageSync('wenjuanList', res)
       this.setData({
         wenjuanList: res
       })
@@ -59,16 +59,15 @@ Page({
   },
   // 选择文件保存
   btnSave: function () {
-
     let that = this
     // 复选框获取的id与对象数组进行遍历得到 该id下的整个对象
     var idlist = that.data.checked
     var InfoList = that.data.wenjuanList
     var checkedList = []
-    if(idlist == undefined || idlist.length == 0){
+    if (idlist == undefined || idlist.length == 0) {
       wx.showToast({
         title: '请选择量表',
-        icon:"none"
+        icon: "none"
       });
       return;
     }
@@ -79,17 +78,17 @@ Page({
         }
       }
     }
-    if(!this.data.date){
+    if (!this.data.date) {
       wx.showToast({
         title: '请选择推送时间',
-        icon:"none"
+        icon: "none"
       });
       return;
     }
-    if(checkedList.length == 0) {
+    if (checkedList.length == 0) {
       wx.showToast({
         title: '请选择量表',
-        icon:"none"
+        icon: "none"
       });
       return;
     }
@@ -100,42 +99,23 @@ Page({
 
     var packagesList = prevPage.data.packagesList;
     var packList = {
-      time:that.data.date,
-      sheetList:checkedList
+      time: that.data.date,
+      sheetList: checkedList
     };
-    
-    if(packagesList != undefined){
+
+    if (packagesList != undefined) {
       packagesList.push(packList);
       prevPage.setData({
-        packagesList:packagesList,
+        packagesList: packagesList,
       })
-    }else {
-      packagesList=[];
+    } else {
+      packagesList = [];
       packagesList.push(packList);
       prevPage.setData({
-        packagesList:packagesList,
+        packagesList: packagesList,
       })
     }
-
     var checkPackagesList = prevPage.data.checkedList;
-   
-    // if(checkPackagesList != undefined){
-    //   // checkPackagesList.concat(checkedList);
-    //   checkedList.forEach(element => {
-    //     checkPackagesList.push(element);
-    //   });
-    //   prevPage.setData({
-    //     checkedList:checkPackagesList,
-    //   })
-    //   console.log(checkPackagesList);
-    // }else {
-    //   prevPage.setData({
-    //     checkedList:checkedList,
-    //   })
-    // }
-    // 直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-    // 不需要页面更新
-
     wx.navigateBack({
       delta: 1,
     })
@@ -164,6 +144,10 @@ Page({
   onLoad: function (options) {
     this.getWenJuanList()
     this.getDateNow()
+    this.setData({
+      editId: options.editId,
+      editIndex: options.editIndex
+    })
   },
 
   /**
@@ -177,7 +161,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let that = this
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];   //当前页面
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    var wenjuanList = wx.getStorageSync('wenjuanList')
+    console.log(wenjuanList);
+    // 1 状态为 修改问卷操作
+    if (that.data.editId == 1) {
+      var index = that.data.editIndex
+      var checkPackagesList = prevPage.data.packagesList[index].sheetList;
 
+      for (var i = 0; i < checkPackagesList.length; i++) {
+        for (var j = 0; j < wenjuanList.length; j++) {
+          if (checkPackagesList[i].id == wenjuanList[j].id) {
+
+            this.setData({
+              wenjuanList: wenjuanList[j].checked
+            })
+          }
+        }
+      }
+      this.setData({
+        date: checkPackagesList.time
+      })
+    }
   },
 
   /**

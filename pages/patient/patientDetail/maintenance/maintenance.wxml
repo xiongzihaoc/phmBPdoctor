@@ -1,13 +1,17 @@
 <view style="padding:30rpx;box-sizing: border-box;">
 	<!-- 起始时间 结束时间 -->
-	<view class="weui-search-bar">
-		<view class="weui-search-bar__form">
-			<!-- 搜索框 -->
-			<view class="weui-search-bar__box searchInput">
-				<icon class="weui-icon-search_in-box" type="search" size="24"></icon>
-				<input bindinput="bindinputSearch" type="text" class="weui-search-bar__input" placeholder="按时间搜索" readonly="readonly" />
+	<view class="picker_group">
+		<picker mode="date" value="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+			<view class="picker">
+				{{startDate}}
 			</view>
-		</view>
+		</picker>
+		至
+		<picker mode="date" value="{{endDate}}" start="{{startDate}}" end="2050-01-01" bindchange="bindDateChange2">
+			<view class="picker">
+				{{endDate}}
+			</view>
+		</picker>
 	</view>
 	<!-- 循环维护详情列表 -->
 	<view class="questionnaire  commonStyle">

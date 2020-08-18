@@ -21,12 +21,13 @@ Page({
     });
     FollowMoreInfo.getFollowInfo(this.data.id, (res) => {
       console.log(res);
-      
       var info = []
       info = res
       info.forEach(item => {
         item.createTime = item.createTime.slice(0, 10)
       })
+      console.log(info);
+      
       this.setData({
         followList: info,
       })
@@ -47,17 +48,17 @@ Page({
   },
   // 跳转问卷详情
   jumpDetail:function(e){
-    console.log(e);
-    const id = this.data.id
+    let id = e.currentTarget.dataset.anuuid
+    let name = e.currentTarget.dataset.name
     wx.navigateTo({
-      url: '/pages/patient/patientDetail/followMore/detail/detail?id=' + id,
+      url: '/pages/patient/patientDetail/followMore/detail/detail?id=' + id +'&name=' + name,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+
     
     this.setData({
       id: options.id

@@ -25,7 +25,7 @@
 		</view>
 		<image src="/images/Rjt_ccc.png"></image>
 	</view>
-	<view class="title" bindtap="bindJumpErweima">
+	<view class="title" bindtap="viewErweima">
 		<view class="userinfo">
 			<image src="/images/erweima.png"></image>
 			<text class="content">二维码</text>
@@ -35,5 +35,10 @@
 			<image src="/images/Rjt_ccc.png"></image>
 		</view>
 	</view>
-
 </view>
+<l-dialog type="alert" l-class="dialogCss" show="{{show}}" title="二维码">
+	<canvas class='canvas' canvas-id='canvas' style="width:520rpx;height:520rpx;"></canvas>
+	<view style="margin-top:20rpx;">
+		扫一扫二维码图案，建立医患关系
+	</view>
+</l-dialog>
