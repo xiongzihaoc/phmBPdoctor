@@ -13,6 +13,7 @@
     "pages/mine/index",
     "pages/mine/userInfo/userInfo",
     "pages/message/index",
+    "pages/message/chat/chat",
     "pages/logs/logs"
   ],
   "window": {

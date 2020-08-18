@@ -1,1 +1,62 @@
-/* pages/message/index.wxss */
+.box {
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.messageList {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 20rpx 14rpx 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+}
+
+.instr {
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+
+.userName {
+  font-weight: 700;
+}
+
+.messageIns {
+  font-size: 28rpx;
+  color: #a8a8a8;
+  margin-top: 10rpx;
+}
+
+.messageIns text {
+  width: 100rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatar image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+}
+
+.orange {
+  position: absolute;
+  right: 40rpx;
+  bottom: 45rpx;
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 50%;
+  background-color: orange;
+}
+
+.date {
+  font-size: 28rpx;
+  color: #a8a8a8;
+  position: absolute;
+  right: 40rpx;
+  top: 30rpx;
+}
