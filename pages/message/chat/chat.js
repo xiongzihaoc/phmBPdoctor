@@ -37,7 +37,15 @@ Page({
     voiceStartImgIndex:1,
     playingVoiceIndex:-1
   },
-  
+  preViewImg:function(e){
+    var url = utils.getDataSet(e,"url");
+    var urls=[];
+    urls.push(url); 
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
   bindMsgClick:function(e){
     console.log(e);
     
