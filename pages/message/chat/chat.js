@@ -4,7 +4,7 @@ var utils = require("../../../utils/util.js");
 const timUtils = new TimUtils();
 const app = new getApp();
 var TxTim = app.getTxTim();
-var recorderManager = wx.getRecorderManager();
+var recorderManager;
 var innerAudioContext = wx.createInnerAudioContext();
 Page({
 
@@ -136,6 +136,8 @@ Page({
   onLoad: function (options) {
     console.log("用户ID");
     console.log(options.userId);
+    recorderManager = wx.getRecorderManager()
+    recorderManager.onStop(this.onAudioReviceOnstop);
     timUtils.onReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
     let then = this;
     this.setData({
@@ -242,9 +244,6 @@ Page({
     }
   },
   startVoice:function(){
-    // timUtils.createAudioMsg("test009",(data)=>{
-    //   console.log(data);
-    // });
     // 录音部分参数
     const recordOptions = {
       duration: 60000, // 录音的时长，单位 ms，最大值 600000（10 分钟）
@@ -259,8 +258,31 @@ Page({
       console.warn('recorder error:', errMsg);
     });
     console.log("开始录音");
-    
+    // recorderManager.onStop(function(res){
+    //   console.log('recorder stop', res);
+ 
+    // });
+    // 
     recorderManager.start(recordOptions);
+  },
+  onAudioReviceOnstop(res){
+    let that = this;
+    console.log("监听录音结束");
+    console.log(res.tempFilePath);
+    if(!this.data.cancel){
+      timUtils.createAudioMsg(that.data.userId,res,(data)=>{
+        console.log(data);
+        var msg = data.data.message;
+        var audioLength = msg.payload.second;
+        msg.payload.width=200+5*audioLength;
+        that.setData({
+          msgList:that.data.msgList.concat(msg),
+          cancel:false,
+          status:0
+        });
+        that.scrollTopBox();
+      });
+    }
   },
   touchStart: function (e) {
     let that = this;
@@ -299,23 +321,8 @@ Page({
     this.stopAudio();
   },
   stopAudio:function(){
-    let that= this;
-    recorderManager.onStop(function(res) {
-      console.log('recorder stop', res);
-      if(!that.data.cancel){
-        timUtils.createAudioMsg(this.data.userId,res,(data)=>{
-          console.log(data);
-          var msg = data.data.message;
-          var audioLength = msg.payload.second;
-          msg.payload.width=200+5*audioLength;
-          that.setData({
-            msgList:that.data.msgList.concat(msg),
-            cancel:false,
-            status:0
-          });
-        });
-      }
-    });
+    recorderManager.stop();
+   
   },
   startAudio:function(e){
     innerAudioContext.destroy();

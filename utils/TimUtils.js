@@ -6,7 +6,9 @@ class TimUtils{
 
   }
   LoginTim(){
-    let promise = tim.login({userID: 'zykj_syg_doctor2020081813382731', userSig:'eJwtjUsLgkAYRf-LrEO*eeUDWkmlZUFpkCspR2XS0tQyjf57oi7vuZx7v8hzXOUdlchARAE0G7IU0aOWsRxw16a3oGqTQORhnZcECICGNUypRlSKJ6US6aUopEAGZgAMU87p2ESfQpZRzznnvQojreV9YLqqUgZ0Pq3IpH9c71b4ZS8bX-e6rLFjcx8*-cKzyLZNstPVso7MdlzzsDnDAv3*r4I4ug__'});
+    var userName = wx.getStorageSync('tencentImUser');
+    var userSig = wx.getStorageSync('tencentImPassword');
+    let promise = tim.login({userID: userName, userSig:userSig});
     promise.then(function(imResponse) {
     console.log(imResponse.data); // 登录成功
     if (imResponse.data.repeatLogin === true) {
@@ -79,7 +81,9 @@ class TimUtils{
       payload: {
         file: res
       },
-      onProgress: function(event) { console.log('file uploading:', event) }
+      onProgress: function(event) {
+         console.log('file uploading:', event)
+        }
     });
     this.sendMessage(message,callBack);
   }

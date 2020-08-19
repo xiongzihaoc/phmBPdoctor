@@ -11,7 +11,6 @@ Page({
  */
   data: {
     name: "",
-    doctorUuid: "",
     loadmoreShow: "false",
     loadmoreType: "end",
     healthPageSize: "",
@@ -25,9 +24,6 @@ Page({
   patientListTap: function (e) {
     const id = e.currentTarget.dataset.patientmessage.patientUuid
     wx.setStorageSync('patientUuid', id)
-    this.setData({
-      doctorUuid: id
-    })
     wx.navigateTo({
       url: '/pages/patient/patientDetail/index?id=' + id,
     })
@@ -38,7 +34,7 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    patientInfo.getUserInfo(this.data.doctorUuid, this.data.name, this.data.healthPageNum, this.data.healthPageSize, (res) => {
+    patientInfo.getUserInfo(this.data.name, this.data.healthPageNum, this.data.healthPageSize, (res) => {
       console.log(res);
       this.setData({
         patientList: res
@@ -69,10 +65,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const openId = wx.getStorageSync('openId');
-    this.setData({
-      doctorUuid: openId
-    })
     // this.getUserInfo();
   },
 

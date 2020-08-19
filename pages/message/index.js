@@ -24,11 +24,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    timUtils.onReceiveEvent(TxTim.EVENT.SDK_NOT_READY,this.onSdkNotReady);
+    timUtils.onReceiveEvent(TxTim.EVENT.SDK_READY,this.onTimSdkReady);
+    timUtils.onReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
+    timUtils.onReceiveEvent(TxTim.EVENT.CONVERSATION_LIST_UPDATED,this.onConversationListUpdated);
   },
   onMessageReceived(event) {
     console.log('收到新消息 会话列表');
     this.getConsultMsgList();
+  },
+  onConversationListUpdated(event){
+    this.getConsultMsgList();
+  },
+  onTimSdkReady(event){
+    this.getConsultMsgList();
+  },
+  onSdkNotReady(event){
+    timUtils.LoginTim((res)=>{
+
+    });
   },
   getConsultMsgList:function(){
     let that = this;
@@ -52,7 +66,7 @@ Page({
    */
   onShow: function () {
     this.getConsultMsgList();
-    timUtils.onReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
+    
     // wx.setStorageSync('openId', 'oHaMa4w3GPBzUlb_8m9j9zPlyhqI');
     // let openId = wx.getStorageSync('openId');
     // if (openId) {
@@ -78,7 +92,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    timUtils.offReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
+    timUtils.offReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onConversationListUpdated);
+    timUtils.offReceiveEvent(TxTim.EVENT.SDK_NOT_READY,this.onSdkNotReady);
+    timUtils.offReceiveEvent(TxTim.EVENT.SDK_READY,this.onTimSdkReady);
   },
 
   /**

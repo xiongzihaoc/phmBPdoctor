@@ -3,7 +3,8 @@ class Patient extends Comm {
   constructor() {
     super();
   }
-  getUserInfo(doctorUuid, name, pageNum, pageSzie, callback) {
+  getUserInfo(name, pageNum, pageSzie, callback) {
+    var doctorUuid = wx.getStorageSync('openId');
     let props = {
       url: "/api/getBindPatients",
       contentType: 'application/json',

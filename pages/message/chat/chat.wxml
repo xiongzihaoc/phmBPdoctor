@@ -1,6 +1,5 @@
 <wxs module="date" src="../../../utils/date.wxs"></wxs>
 <view style="width:100vm">
-
   <scroll-view class="scorllView"  scroll-into-view="{{scrollTopItem}}" scroll-y="true" scroll-with-animation refresher-enabled="{{true}}" refresher-default-style="none" bindscrolltoupper="getMoreMsgList" refresher-triggered="{{scrollrefresher}}" bindrefresherrestore="">
     <view class='scrollMsg'>
       <block wx:key wx:for='{{msgList}}' wx:for-index="index"  wx:key="{{index}}">
@@ -15,10 +14,12 @@
           <view wx:elif="{{item.type=='TIMSoundElem'}}" class='leftvoice' style="width:{{item.payload.width}}rpx" bindtap="startAudio" data-index="{{index}}" data-url="{{item.payload.url}}">
             <view class="left_secound_box">
             <view class="voice_bg_left">
-              <image wx:if="{{!isStartVoice}}" class="voice_item" src="/images/voice_start_left_3.png"></image>
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==1 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_left_1.png"></image>
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==2 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_left_2.png" ></image>  
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==3 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_left_3.png" ></image>  
+              <view wx:if="{{isStartVoice && playingVoiceIndex==index}}">
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==1}}" src="/images/voice_start_left_1.png"></image>
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==2}}" src="/images/voice_start_left_2.png" ></image>  
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==3}}" src="/images/voice_start_left_3.png" ></image> 
+              </view>
+              <image wx:else class="voice_item" src="/images/voice_start_left_3.png"></image>
             </view>
             <text>{{item.payload.second}}"</text>
             </view>
@@ -32,10 +33,12 @@
             <view class="right_secound_box">
             <text>{{item.payload.second}}"</text>
             <view class="voice_bg">
-              <image wx:if="{{!isStartVoice}}" class="voice_item" src="/images/voice_start_right_3.png"></image>
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==1 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_right_1.png"></image>
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==2 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_right_2.png" ></image>  
-              <image class="voice_item" wx:if="{{voiceStartImgIndex==3 && isStartVoice && playingVoiceIndex==index}}" src="/images/voice_start_right_3.png" ></image>  
+              <view wx:if="{{isStartVoice && playingVoiceIndex==index}}">
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==1}}" src="/images/voice_start_right_1.png"></image>
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==2}}" src="/images/voice_start_right_2.png" ></image>  
+                <image class="voice_item" wx:if="{{voiceStartImgIndex==3}}" src="/images/voice_start_right_3.png" ></image> 
+              </view>
+              <image wx:else class="voice_item" src="/images/voice_start_right_3.png"></image>
             </view>
             </view>
           </view>
