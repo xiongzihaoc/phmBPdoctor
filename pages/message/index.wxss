@@ -44,13 +44,22 @@
 }
 
 .orange {
+  display: flex;
   position: absolute;
   right: 40rpx;
-  bottom: 45rpx;
-  width: 15rpx;
-  height: 15rpx;
+  bottom: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
   border-radius: 50%;
-  background-color: orange;
+  background-color:red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.orange text{
+  display: flex;
+  font-size: 25rpx;
+  color: #fff;
 }
 
 .date {

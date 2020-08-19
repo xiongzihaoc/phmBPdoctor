@@ -1,28 +1,43 @@
 // pages/message/index.js
+import {TimUtils} from "../../utils/TimUtils.js"
+const timUtils = new TimUtils();
+var app = getApp();
+var TxTim = app.getTxTim();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    messageList: [
-      { name: "王俊生", id: 1 },
-      { name: "施工井", id: 2 },
-      { name: "李白", id: 3 },
-      { name: "李清照", id: 4 },
-    ]
+    messageList: []
   },
   // 点击该患者聊天
-  goChat:function(){
+  goChat:function(e){
+    console.log(e);
+    timUtils.offReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
     wx.navigateTo({
-      url: '/pages/message/chat/chat',
-    })
+      url: '/pages/message/chat/chat?conversationID='+e.currentTarget.dataset.id+"&userId="+e.currentTarget.dataset.userid,
+    });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
+  },
+  onMessageReceived(event) {
+    console.log('收到新消息 会话列表');
+    this.getConsultMsgList();
+  },
+  getConsultMsgList:function(){
+    let that = this;
+    timUtils.getConversationList((data)=>{
+      console.log(data);
+      that.setData({
+        messageList:data
+      });
+    })
   },
 
   /**
@@ -36,6 +51,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getConsultMsgList();
+    timUtils.onReceiveEvent(TxTim.EVENT.MESSAGE_RECEIVED,this.onMessageReceived);
     // wx.setStorageSync('openId', 'oHaMa4w3GPBzUlb_8m9j9zPlyhqI');
     // let openId = wx.getStorageSync('openId');
     // if (openId) {

@@ -1,3 +1,12 @@
+.noBingDoctorbox{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  font-size: 30rpx;
+  color: #1B1200;
+}
 .weui-search-bar {
   position: relative;
   display: -webkit-box;

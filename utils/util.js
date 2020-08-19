@@ -1,19 +1,30 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+function getCurrentDate(){
+    var myDate = new Date();
+    myDate.getFullYear();
+    myDate.getMonth();
+    myDate.getDate();
+    return myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
+}
+function getDataSet(event, key) {
+  return event.currentTarget.dataset[key];
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+function createSignature(appkey,timestamp,randomStr,masterSecret) {
+  var str=`appkey=${appkey}&timestamp=${timestamp}&random_str=${randomStr}&key=${masterSecret}`;
+  console.log(str);
+  return md5.md5(str);
+}
+function imageZoomHeightUtil(screenWidth,originalWidth,originalHeight){ 
+  let imageSize = {}; 
+  var imageWidth = screenWidth/2;
+  imageSize.width = imageWidth; 
+  imageSize.height = (imageWidth * originalHeight) / originalWidth; 
+  return imageSize; 
 }
 
-module.exports = {
-  formatTime: formatTime
+module.exports={
+  getCurrentDate,
+  getDataSet,
+  createSignature,
+  imageZoomHeightUtil
 }

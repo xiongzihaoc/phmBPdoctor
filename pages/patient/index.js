@@ -1,6 +1,8 @@
 
 
 import { Patient } from "./index_modle"
+import{TimUtils} from "../../utils/TimUtils.js"
+const timUtils = new TimUtils();
 let patientInfo = new Patient();
 Page({
 
@@ -17,6 +19,7 @@ Page({
     healthTotal: 1,
     healthPageNum: 1,
     healthPageSize: 6,
+    isLogin:false,
   },
   // 点击单个患者查看详情
   patientListTap: function (e) {
@@ -70,7 +73,7 @@ Page({
     this.setData({
       doctorUuid: openId
     })
-    this.getUserInfo()
+    // this.getUserInfo();
   },
 
   /**
@@ -83,7 +86,27 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (e) { },
+  onShow: function (e) { 
+    let that = this;
+    let openId = wx.getStorageSync('openId');
+    if (openId) {
+      this.setData({
+        isLogin: true
+      });
+      wx.showLoading({
+        title: '加载中...',
+      })
+      this.getUserInfo();
+      timUtils.LoginTim();
+    } else {
+      wx.clearStorage();
+      wx.nextTick(() => {
+        wx.navigateTo({
+          url: '/pages/Authorization/index',
+        })
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

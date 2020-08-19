@@ -1,4 +1,9 @@
-<view style="padding:30rpx;box-sizing: border-box;">
+<view>
+ <view wx:if="{{!isLogin}}" class="noBingDoctorbox" bindtap="bindDoctor">
+    <text style="display:block;">还未登录,请点击登录</text>
+  </view>
+
+	<view wx:else style="padding:30rpx;box-sizing: border-box;">
 	<view class="weui-search-bar">
 		<view class="weui-search-bar__form">
 			<!-- 搜索框 -->
@@ -35,4 +40,5 @@
 		</view>
 	</block>
 	<loadmore show="{{loadmoreShow}}" type="{{loadmoreType}}" loading-text="加载中,请稍后..." end-text="我是有底线的" line="{{true}}"></loadmore>
+</view>
 </view>

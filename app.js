@@ -12,6 +12,9 @@ App({
   getTim:function(){
     return tim;
   },
+  getTxTim:function(){
+    return TxTim;
+  },
   setJGJim:function(newjim){
     jim = newjim;
     console.log("appJim:");

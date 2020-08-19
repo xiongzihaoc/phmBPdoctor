@@ -20,6 +20,8 @@ Page({
       wx.setStorageSync('openId', data.openId);
       wx.setStorageSync('userName', data.userInfo.name);
       wx.setStorageSync('avatarUrl', data.userInfo.avatarUrl);
+      wx.setStorageSync('tencentImUser', data.userInfo.tencentImUser);
+      wx.setStorageSync('tencentImPassword', data.userInfo.tencentImPassword);
       wx.navigateBack({
       });
     });

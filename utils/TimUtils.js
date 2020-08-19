@@ -6,7 +6,7 @@ class TimUtils{
 
   }
   LoginTim(){
-    let promise = tim.login({userID: 'test006', userSig:'eJwtzMEKgkAUheF3mW1h1xlHGcFFVJsyA5NWbYQ7yqUabJxEid49UZfnO-B-WZFevU5bFjPuAVtPm1AbRxVN7HTrAMLlavFRNg0hi-0AIPCFlGJ*dN*Q1aNLKTkAzOroNZmKhFJhpJYK1WP55Pb3jV2d32n*yQmzDIcjIi8v*lYNXV8Mh53Nn8Y3W6oT9vsDrq8zHQ__'});
+    let promise = tim.login({userID: 'zykj_syg_doctor2020081813382731', userSig:'eJwtjUsLgkAYRf-LrEO*eeUDWkmlZUFpkCspR2XS0tQyjf57oi7vuZx7v8hzXOUdlchARAE0G7IU0aOWsRxw16a3oGqTQORhnZcECICGNUypRlSKJ6US6aUopEAGZgAMU87p2ESfQpZRzznnvQojreV9YLqqUgZ0Pq3IpH9c71b4ZS8bX-e6rLFjcx8*-cKzyLZNstPVso7MdlzzsDnDAv3*r4I4ug__'});
     promise.then(function(imResponse) {
     console.log(imResponse.data); // 登录成功
     if (imResponse.data.repeatLogin === true) {
@@ -152,6 +152,16 @@ class TimUtils{
   }
   offReceiveEvent(receiveId,event){
     tim.off(receiveId, event);
+  }
+  setMessageRead(conversationID,callBack){
+    let promise = tim.setMessageRead({conversationID: conversationID});
+    promise.then(function(imResponse) {
+      callBack(imResponse);
+      // 已读上报成功，指定 ID 的会话的 unreadCount 属性值被置为0
+    }).catch(function(imError) {
+      // 已读上报失败
+      console.warn('setMessageRead error:', imError);
+    });
   }
 }
 export{TimUtils}
