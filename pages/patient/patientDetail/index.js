@@ -1,4 +1,5 @@
 // pages/patientDetail/index.js
+var utils = require("../../../utils/util.js");
 import { Matter, UserInfo, Report, Maint, FollowMore } from "./index.modle"
 let MatterInfo = new Matter();
 let userInfo = new UserInfo();
@@ -20,8 +21,8 @@ Page({
     Matter: {},
     reportList: {},
     MaintList: {},
-    isFinsh:{},
-    patientUuid:"",
+    isFinsh: {},
+    patientUuid: "",
   },
   // 获取患者个人信息
   getUserInfo: function () {
@@ -30,9 +31,9 @@ Page({
     });
     userInfo.getUserInfo(this.data.patientId, (res) => {
       console.log(res);
-      
+
       this.setData({
-        patientUuid:res.uuid,
+        patientUuid: res.uuid,
         userInfo: res
       })
 
@@ -56,8 +57,8 @@ Page({
       title: '加载中...',
     });
     MaintInfo.getMaintInfo(this.data.maintenanceId, (res) => {
-      console.log(res,666);
-      
+      console.log(res, 666);
+
       this.setData({
         MaintList: res[0],
       })
@@ -70,11 +71,11 @@ Page({
       title: '加载中...',
     });
     FollowMoreInfo.getFollowInfo(this.data.patientId, (res) => {
-      console.log(res,333333333333333333);
-      
-     this.setData({
-       isFinsh : res
-     })
+      console.log(res, 333333333333333333);
+
+      this.setData({
+        isFinsh: res
+      })
 
 
     });
@@ -112,7 +113,6 @@ Page({
         url: "/pages/message/index",
       }
     )
-
   },
   // 跳转到问卷设置
   setWenjuan: function () {
@@ -141,6 +141,40 @@ Page({
     const id = this.data.maintenanceId
     wx.navigateTo({
       url: '/pages/patient/patientDetail/maintenance/maintenance?id=' + id,
+    })
+  },
+  // 解除绑定
+  removeBinding: function () {
+    var docId = wx.getStorageSync('openId')
+    // var patId = 
+    wx.showLoading({
+      title: '加载中...',
+    });
+    ReportInfo.removeBinding(this.data.patientId, docId, (res) => {
+      if (res.code != 200) {
+        wx.showToast({
+          title: '解绑失败，请稍后重试',
+        })
+        return
+      } else {
+        wx.showToast({
+          title: '解绑成功',
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      }
+    });
+  },
+  // 预览图片
+  preViewImage: function (e) {
+    var url = utils.getDataSet(e, "url");
+    // console.log(url);
+    var urls = [];
+    urls.push(url);
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
     })
   },
   /**

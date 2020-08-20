@@ -1,4 +1,5 @@
 // pages/patient/patientDetail/history/index.js
+var utils = require("../../../../utils/util.js");
 import { Matter } from "./history_modle"
 let MatterInfo = new Matter();
 Page({
@@ -39,6 +40,18 @@ Page({
       endDate: e.detail.value,
     })
     this.getMatterInfo()
+  },
+  // 预览图片
+  // 预览图片
+  preViewImage: function (e) {
+    var url = utils.getDataSet(e, "url");
+    // console.log(url);
+    var urls = [];
+    urls.push(url);
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
   },
   /**
    * 生命周期函数--监听页面加载

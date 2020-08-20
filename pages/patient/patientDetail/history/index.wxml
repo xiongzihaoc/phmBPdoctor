@@ -45,7 +45,7 @@
 				<!-- 问题图片 -->
 				<view class="questionImg">
 					<block wx:if="{{Matter.appendix.length>0}}" wx:for="{{Matter.appendix}}" wx:key="item">
-						<image src="{{item.photoUrl}}"></image>
+						<image bindtap="preViewImage" data-url="{{item.photoUrl}}" src="{{item.photoUrl}}"></image>
 					</block>
 				</view>
 			</view>

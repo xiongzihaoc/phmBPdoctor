@@ -1,4 +1,5 @@
 // pages/patient/patientDetail/more/more.js
+var utils = require('../../../../utils/util.js')
 import { Report } from "./more.modle"
 let ReportInfo = new Report();
 Page({
@@ -21,6 +22,17 @@ Page({
         reportList: res,
       })
     });
+  },
+  // 预览图片
+  preViewImage: function (e) {
+    var url = utils.getDataSet(e, "url");
+    // console.log(url);
+    var urls = [];
+    urls.push(url);
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
   },
   /**
    * 生命周期函数--监听页面加载

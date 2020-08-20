@@ -49,7 +49,7 @@
 			<!-- 问题图片 -->
 			<view class="questionImg">
 				<block wx:if="{{Matter.appendix.length>0}}" wx:for="{{Matter.appendix}}" wx:key="item">
-					<image src="{{item.photoUrl}}"></image>
+					<image bindtap="preViewImage" data-url="{{item.photoUrl}}" src="{{item.photoUrl}}"></image>
 				</block>
 			</view>
 		</view>
@@ -134,7 +134,7 @@
 			<!-- 报告单图片 -->
 			<view class="questionImg">
 				<block wx:if="{{reportList.medicalReports.length>0}}" wx:for="{{reportList.medicalReports}}" wx:key="item">
-					<image src="{{item.reportUrl}}"></image>
+					<image bindtap="preViewImage" data-url="{{item.reportUrl}}" src="{{item.reportUrl}}"></image>
 				</block>
 			</view>
 		</view>
@@ -142,5 +142,5 @@
 		</view>
 	</view>
 	<button type="primary" style="margin-top: 20rpx;margin-bottom: 20rpx" bindtap="sendMessage">发信息</button>
-	<button type="warn">解除绑定</button>
+	<button bindtap="removeBinding" type="warn">解除绑定</button>
 </view>

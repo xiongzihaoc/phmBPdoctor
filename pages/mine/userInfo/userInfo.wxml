@@ -1,14 +1,17 @@
 <view class="box">
 	<view class="infoList">
 		<text class="fontWeight">姓名</text>
-		<text class="fontColor">{{userInfo.name}}</text>
+		<input class="user_info_name fontColor" value="{{name}}" placeholder="请输入姓名" bindinput="bindName"></input>
 	</view>
 	<view class="infoList">
 		<text class="fontWeight">性别</text>
-		<text class="fontColor">{{userInfo.gender}}</text>
+		<picker bindchange="bindGenderChange" value="{{genderIndex}}" range="{{genderList}}">
+			<view class="user_info_sex fontColor">{{gender}}</view>
+		</picker>
 	</view>
 	<view class="infoList">
 		<text class="fontWeight">联系电话</text>
-		<text class="fontColor">{{userInfo.phone}}</text>
+		<input class="user_info_name fontColor" value="{{phone}}" placeholder="请输入手机号码" bindinput="bindPhone"></input>
 	</view>
+	<view class="btnSave" bindtap="btnSave">保存</view>
 </view>

@@ -31,7 +31,7 @@
 				</view>
 				<view class="questionImg">
 					<block wx:if="{{item.appendix.length > 0}}" wx:for="{{item.appendix}}" wx:for-item="subItem" wx:key="id">
-						<image src="{{subItem.photoUrl}}"></image>
+						<image bindtap="preViewImage" data-url="{{subItem.photoUrl}}" src="{{subItem.photoUrl}}"></image>
 					</block>
 				</view>
 			</view>

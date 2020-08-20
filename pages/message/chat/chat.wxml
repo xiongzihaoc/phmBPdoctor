@@ -57,15 +57,14 @@
     </view>
   </view>
   <view class='inputRoom'>
-    <view wx:if="{{!isVoice}}" style="display:flex">
+    <view wx:if="{{!isVoice}}" style="display:flex;align-items:center;justify-content: center;">
       <image class="send_voice_img" src='/images/consult_voice_icon.png' mode='widthFix' bindtap="checkSendVoice"></image>
       <input bindconfirm='sendTxtMsg' adjust-position='{{true}}' value='{{txtMsg}}' confirm-type='send' bindfocus='focus' bindinput="bindSendMsgInput"></input>
     </view>
-    <view wx:else style="display:flex;justify-content: center;">
+    <view wx:else style="display:flex;justify-content: center;align-items:center;">
       <image  class="send_text_img" src='/images/consult_text_icon.png' mode='widthFix' bindtap="checkSendTxt"></image>
       <text class="voice_text" bindlongtap="startVoice" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">{{tips[status]}}</text>
     </view>
-    
      <image wx:if="{{!isSendBtn}}" class="send_image_img" src='/images/consult_image_icon.png' mode='widthFix' bindtap="sendImgMsg"></image>
      <text wx:else class="send_msg" bindtap="sendTxtMsg">发送</text>
   </view>
