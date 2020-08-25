@@ -30,8 +30,8 @@ Page({
       }
       this.setData({
         name: res.name,
-        gender:sex,
-        phone:res.phone
+        gender: sex,
+        phone: res.phone
       })
 
     });
@@ -95,8 +95,9 @@ Page({
       gender: sex,
       phone: that.data.phone,
     }, (res) => {
-      console.log(res);
-
+      wx.switchTab({
+        url: '/pages/patient/index',
+      })
     });
   },
   /**
