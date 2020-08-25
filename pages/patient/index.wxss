@@ -1,12 +1,13 @@
-.noBingDoctorbox{
+.noBingDoctorbox {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   font-size: 30rpx;
   color: #1B1200;
 }
+
 .weui-search-bar {
   position: relative;
   display: -webkit-box;
@@ -95,4 +96,14 @@
 .setSave {
   display: flex;
   align-items: center;
+}
+
+.kong {
+  margin-top: 300rpx;
+  text-align: center;
+}
+
+.iconkong {
+  font-size: 64rpx;
+  color: #a8a8a8;
 }

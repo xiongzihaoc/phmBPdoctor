@@ -1,19 +1,10 @@
 // pages/mine/index.js
 import { RegModle } from './index.modle'
 let RegModleInfo = new RegModle();
-
-
-var QRCode = require('../../utils/weapp-qrcode')
-
-let W = wx.getSystemInfoSync().windowWidth
-let rate = 750.0 / W;
-
-// 300rpx 在6s上为 150px
-const qrcode_w = 520 / rate;
-
-
-
 const app = new getApp();
+
+import QR from "../../utils/weapp-qrcode" // 二维码生成器
+
 Page({
 
   /**
@@ -23,7 +14,7 @@ Page({
     qCodeShow: false,
     userName: '',
     headerUrl: "",
-    qrcode_w: qrcode_w,
+    qrcode: '',
     isLogin: false,
     List: [
       { id: 1, name: "个人信息", icon: "iconfont icon-gerenxinxi" },
@@ -42,21 +33,55 @@ Page({
       qCodeShow: true
     });
   },
+  //适配不同屏幕大小的canvas
+  getQRCodeSize: function () {
+    var size = 0;
+    try {
+      var res = wx.getSystemInfoSync();
+      var scale = 750 / 278; //不同屏幕下QRcode的适配比例；设计稿是750宽
+      var width = res.windowWidth / scale;
+      size = width;
+
+    } catch (e) {
+      // Do something when catch error
+      // console.log("获取设备信息失败"+e);
+    }
+    return size;
+  },
+  createQRCode: function (text, size) {
+    //调用插件中的draw方法，绘制二维码图片
+    let that = this
+    // console.log('QRcode: ', text, size)
+    let _img = QR.createQrCodeImg(text, {
+      size: parseInt(size)
+    })
+    that.setData({
+      'qrcode': _img
+    })
+  },
+  // 保存二维码至本地
+  saveImg: function (e) {
+    // 64
+    console.log(e.currentTarget.dataset.url);
+    wx.saveImageToPhotosAlbum({
+      success(res) {
+        console.log(res);
+
+      },
+      error(error){
+        console.log(error);
+        
+      },
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     let openId = wx.getStorageSync('openId');
-    QRCode = new QRCode('#canvas', {
-      text: openId,
-      width: qrcode_w,
-      height: qrcode_w,
-      correctLevel: QRCode.CorrectLevel.H, // 二维码可辨识度
-      // callback: (res) => {
-      //   console.log(res);
-      // }
-    })
+    var that = this;
+    let qrcodeSize = that.getQRCodeSize()
+    that.createQRCode(openId, qrcodeSize)
   },
 
   /**

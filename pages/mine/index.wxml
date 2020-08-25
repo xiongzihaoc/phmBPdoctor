@@ -37,7 +37,7 @@
 	</view>
 </view>
 <van-dialog bind:close="closeViewErweima" showConfirmButton="{{false}}" use-slot show="{{qCodeShow}}" closeOnClickOverlay overlay>
-	<view id="canvas" style="width:{{qrcode_w}}px; height:{{qrcode_w}}px;"></view>
+	<image src="{{qrcode}}" class="qrcode" bindlongtap="saveImg" data-url="{{qrcode}}"></image>
 	<view class="text">
 		扫一扫二维码图案，建立医患关系
 	</view>

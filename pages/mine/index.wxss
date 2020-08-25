@@ -73,12 +73,18 @@
 }
 
 .text {
-  margin: 30rpx 0 60rpx;
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
   text-align: center;
   color: #808080;
   font-size: 28rpx;
 }
 
-canvas {
-  margin: 60rpx 0 0 75rpx;
+.qrcode {
+  width: 520rpx;
+  height: 520rpx;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30rpx;
+  margin-top: 60rpx;
 }
