@@ -1,20 +1,28 @@
 var app = getApp();
 var tim = app.getTim();
 var TxTim = app.getTxTim();
+import {TimModle} from "./Time_Modle.js";
+const timModle = new TimModle();
 class TimUtils{
   constructor(){
 
   }
-  LoginTim(){
+  LoginTim(callBack){
+    let that = this;
     var userName = wx.getStorageSync('tencentImUser');
-    var userSig = wx.getStorageSync('tencentImPassword');
+    timModle.getUserSign(userName,(data)=>{
+      that.login(userName,data.data,callBack);
+    });
+  }
+  login(userName,userSig,callBack){
     let promise = tim.login({userID: userName, userSig:userSig});
     promise.then(function(imResponse) {
-    console.log(imResponse.data); // 登录成功
-    if (imResponse.data.repeatLogin === true) {
-      // 标识账号已登录，本次登录操作为重复登录。v2.5.1 起支持
-      console.log(imResponse.data.errorInfo);
-      }
+      callBack(imResponse.data);
+      console.log("登录成功"); // 登录成功
+      if (imResponse.data.repeatLogin === true) {
+        // 标识账号已登录，本次登录操作为重复登录。v2.5.1 起支持
+        console.log(imResponse.data.errorInfo);
+        }
     }).catch(function(imError) {
       console.warn('login error:', imError); // 登录失败的相关信息
     });

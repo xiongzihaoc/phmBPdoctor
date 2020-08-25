@@ -1,5 +1,3 @@
-
-
 import { Patient } from "./index_modle"
 import{TimUtils} from "../../utils/TimUtils.js"
 const timUtils = new TimUtils();
