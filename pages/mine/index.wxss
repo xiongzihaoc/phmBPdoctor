@@ -1,6 +1,7 @@
 /* pages/mine/index.wxss */
 
 .box {
+  position: relative;
   background: url("https://zykj-resource.oss-cn-hangzhou.aliyuncs.com/wechat/user_bg.png") no-repeat bottom;
   background-size: contain;
   height: 100%;
@@ -11,7 +12,7 @@
 .myMessage {
   display: flex;
   width: 100%;
-  height: 300rpx;
+  height: 200rpx;
   align-items: center;
   /* background-color: #AAD8FF; */
   /* background-color: var(--themeColor); */
@@ -62,6 +63,7 @@
 .title image {
   width: 60rpx;
   height: 60rpx;
+
 }
 
 .content {
@@ -69,10 +71,14 @@
   font-weight: 700;
   margin-left: 30rpx;
 }
-.dialogCss {
-  width: 80%!important;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
+
+.text {
+  margin: 30rpx 0 60rpx;
+  text-align: center;
+  color: #808080;
+  font-size: 28rpx;
+}
+
+canvas {
+  margin: 60rpx 0 0 75rpx;
 }

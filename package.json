@@ -20,6 +20,7 @@
     "@vant/weapp": "^1.4.4",
     "cos-wx-sdk-v5": "^0.7.10",
     "lin-ui": "^0.8.7",
-    "tim-wx-sdk": "^2.7.7"
+    "tim-wx-sdk": "^2.7.7",
+    "weapp-qrcode": "^1.0.0"
   }
 }

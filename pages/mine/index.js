@@ -1,7 +1,18 @@
 // pages/mine/index.js
-var QRCode = require('../../utils/weapp-qrcode')
 import { RegModle } from './index.modle'
 let RegModleInfo = new RegModle();
+
+
+var QRCode = require('../../utils/weapp-qrcode')
+
+let W = wx.getSystemInfoSync().windowWidth
+let rate = 750.0 / W;
+
+// 300rpx 在6s上为 150px
+const qrcode_w = 520 / rate;
+
+
+
 const app = new getApp();
 Page({
 
@@ -9,9 +20,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: false,
+    qCodeShow: false,
     userName: '',
     headerUrl: "",
+    qrcode_w: qrcode_w,
     isLogin: false,
     List: [
       { id: 1, name: "个人信息", icon: "iconfont icon-gerenxinxi" },
@@ -27,21 +39,24 @@ Page({
   // 查看二维码
   viewErweima: function () {
     this.setData({
-      show: true,
-    })
+      qCodeShow: true
+    });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var openId = wx.getStorageSync('openId')
-    QRCode = new QRCode('canvas', {
-      // usingIn: this,
+
+    let openId = wx.getStorageSync('openId');
+    QRCode = new QRCode('#canvas', {
       text: openId,
-      colorDark: "#000",
-      colorLight: "white",
-      correctLevel: QRCode.CorrectLevel.H,
-    });
+      width: qrcode_w,
+      height: qrcode_w,
+      correctLevel: QRCode.CorrectLevel.H, // 二维码可辨识度
+      // callback: (res) => {
+      //   console.log(res);
+      // }
+    })
   },
 
   /**

@@ -6,7 +6,7 @@
 				<view>
 					<text>套餐{{index + 1}}</text>
 				</view>
-				<view class="edit" data-info="{{index}}" bindtap="edit">
+				<view style="visibility: hidden;" class="edit" data-info="{{index}}" bindtap="edit">
 					<text>修改问卷</text>
 					<text class="iconfont iconarrow"></text>
 				</view>

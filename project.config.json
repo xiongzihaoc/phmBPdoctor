@@ -27,12 +27,12 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.3",
-	"appid": "wx9fe9514006df1454",
+	"appid": "wxd862adbfb5df181f",
 	"projectname": "phmdoctor",
 	"debugOptions": {
 		"hidedInDevtools": []

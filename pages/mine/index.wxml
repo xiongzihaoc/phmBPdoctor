@@ -7,10 +7,10 @@
 			</view>
 			<view style="margin-left:20rpx" wx:if="{{isLogin}}">
 				<text class="fontWeight" style="display:inline-block;margin-bottom:20rpx;font-size:36rpx;">{{userName}}</text>
-				<view>
+				<!-- <view>
 					<text class="fontWeight" style="font-size:24rpx">浙江</text>
 					<text class="fontWeight" style="font-size:24rpx;margin-left:10rpx">杭州</text>
-				</view>
+				</view> -->
 			</view>
 			<view style="margin-left:20rpx" wx:else>
 				<text class="fontWeight" style="display:inline-block;margin-bottom:20rpx;font-size:36rpx;">请登录</text>
@@ -36,9 +36,9 @@
 		</view>
 	</view>
 </view>
-<l-dialog type="alert" l-class="dialogCss" show="{{show}}" title="二维码">
-	<canvas class='canvas' canvas-id='canvas' style="width:520rpx;height:520rpx;"></canvas>
-	<view style="margin-top:20rpx;">
+<van-dialog bind:close="closeViewErweima" showConfirmButton="{{false}}" use-slot show="{{qCodeShow}}" closeOnClickOverlay overlay>
+	<view id="canvas" style="width:{{qrcode_w}}px; height:{{qrcode_w}}px;"></view>
+	<view class="text">
 		扫一扫二维码图案，建立医患关系
 	</view>
-</l-dialog>
+</van-dialog>

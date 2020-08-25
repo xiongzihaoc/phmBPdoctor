@@ -28,7 +28,11 @@
 }
 
 .btnSave {
-  width: 100%;
+  position: fixed;
+  left: 50%;
+  bottom: 100rpx;
+  transform: translate(-50%);
+  width: 90%;
   padding: 20rpx;
   box-sizing: border-box;
   margin-top: 30rpx;
