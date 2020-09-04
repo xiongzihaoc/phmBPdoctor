@@ -79,15 +79,23 @@ Page({
   onShow: function (e) { 
     let that = this;
     let openId = wx.getStorageSync('openId');
+    let isExist  = wx.getStorageSync('isExist');
     if (openId) {
       this.setData({
         isLogin: true
       });
-      wx.showLoading({
-        title: '加载中...',
-      })
-      this.getUserInfo();
-      timUtils.LoginTim();
+      if(isExist == "0") {
+        wx.navigateTo({
+          url: '../bindNum/bindNum',
+        })
+      }else {
+        wx.showLoading({
+          title: '加载中...',
+        })
+        this.getUserInfo();
+        timUtils.LoginTim();
+      }
+      
     } else {
       wx.clearStorage();
       wx.nextTick(() => {

@@ -14,7 +14,8 @@
     "pages/mine/userInfo/userInfo",
     "pages/message/index",
     "pages/message/chat/chat",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/bindNum/bindNum"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -22,12 +23,12 @@
     "navigationBarTitleText": "医生端",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f5f5f5"
-
   },
   "tabBar": {
     "color": "#000",
     "selectedColor": "#1ADCA9",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/patient/index",
         "text": "患者",
         "iconPath": "./images/paitent.png",
@@ -50,7 +51,6 @@
   "usingComponents": {
     "l-button": "/miniprogram_npm/lin-ui/button/index",
     "l-input": "/miniprogram_npm/lin-ui/input/index"
-
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
