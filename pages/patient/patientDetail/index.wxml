@@ -90,9 +90,9 @@
 	<!-- 维护时间 维护医院 -->
 	<view class="questionnaire  commonStyle">
 		<view class="questionImg">
-			<text class="fontWeight quesRecord">维护信息</text>
+			<text class="fontWeight quesRecord">护理记录</text>
 			<view class="history fontWeight disFlex" bindtap="bingtapmaintenance">
-				<text class="fontWeight">维护历史</text>
+				<text class="fontWeight">历史</text>
 				<image class="jtImg" src="../../../images/Rjt.png"></image>
 			</view>
 		</view>
@@ -104,38 +104,14 @@
 				</view>
 				<view style="margin-left:30rpx;">
 					<view class="isFinish">
-						<text >维护时间：</text>
+						<text >换药时间：</text>
 						<text class="fontWeight">{{MaintList.actualTime}}</text>
 					</view>
 					<view class="isFinish">
-						<text >维护医院：</text>
+						<text >换药方式：</text>
 						<text class="fontWeight">{{MaintList.hospital}}</text>
 					</view>
 				</view>
-			</view>
-		</view>
-		<view>
-		</view>
-	</view>
-	<!-- 报告单 -->
-	<view class="questionnaire  commonStyle">
-		<view class="questionImg">
-			<text class="fontWeight quesRecord">报告单</text>
-			<view class="history fontWeight disFlex" bindtap="bingtapMore">
-				<text class="fontWeight">更多</text>
-				<image class="jtImg" src="../../../images/Rjt.png"></image>
-			</view>
-		</view>
-		<view class="report">
-			<view>
-				<text>添加时间：</text>
-				<text class="fontWeight">2020-10-01</text>
-			</view>
-			<!-- 报告单图片 -->
-			<view class="questionImg">
-				<block wx:if="{{reportList.medicalReports.length>0}}" wx:for="{{reportList.medicalReports}}" wx:key="item">
-					<image bindtap="preViewImage" data-url="{{item.reportUrl}}" src="{{item.reportUrl}}"></image>
-				</block>
 			</view>
 		</view>
 		<view>

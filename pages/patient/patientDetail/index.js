@@ -1,9 +1,8 @@
 // pages/patientDetail/index.js
 var utils = require("../../../utils/util.js");
-import { Matter, UserInfo, Report, Maint, FollowMore } from "./index.modle"
+import { Matter, UserInfo, Maint, FollowMore } from "./index.modle"
 let MatterInfo = new Matter();
 let userInfo = new UserInfo();
-let ReportInfo = new Report();
 let MaintInfo = new Maint();
 let FollowMoreInfo = new FollowMore();
 
@@ -19,7 +18,6 @@ Page({
     maintenanceId: "",
     userInfo: {},
     Matter: {},
-    reportList: {},
     MaintList: {},
     isFinsh: {},
     patientUuid: "",
@@ -77,18 +75,6 @@ Page({
         isFinsh: res
       })
 
-
-    });
-  },
-  // 获取报告单信息
-  getReportInfo: function () {
-    wx.showLoading({
-      title: '加载中...',
-    });
-    ReportInfo.getReportInfo(this.data.reportId, (res) => {
-      this.setData({
-        reportList: res[0],
-      })
 
     });
   },
@@ -191,8 +177,6 @@ Page({
     this.getUserInfo()
     // 获取问题记录信息
     this.getMatterInfo()
-    // 获取报告单信息
-    this.getReportInfo()
     // 获取维护详情信息
     this.getMaintInfo()
     // 获取随访更多信息

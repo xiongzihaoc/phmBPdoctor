@@ -6,7 +6,7 @@
 				{{startDate}}
 			</view>
 		</picker>
-		至
+		-
 		<picker mode="date" value="{{endDate}}" start="{{startDate}}" end="2050-01-01" bindchange="bindDateChange2">
 			<view class="picker">
 				{{endDate}}
@@ -16,17 +16,17 @@
 	<!-- 循环维护详情列表 -->
 	<view class="questionnaire  commonStyle">
 		<view class="questionImg">
-			<text class="fontWeight quesRecord maintainRecord">维护记录</text>
+			<text class="fontWeight quesRecord maintainRecord">护理记录</text>
 		</view>
 		<!-- 循环卡片 -->
 		<block wx:for="{{MaintList}}" wx:key="id">
 			<view class="report" style="margin-bottom:20rpx">
 				<view style=" margin-bottom:20rpx">
-					<text>维护时间：</text>
+					<text>护理时间：</text>
 					<text class="fontWeight">{{item.actualTime}}</text>
 				</view>
 				<view style=" margin-bottom:20rpx">
-					<text>维护医院：</text>
+					<text>护理医院：</text>
 					<text class="fontWeight">{{item.hospital}}</text>
 				</view>
 				<view class="questionImg">

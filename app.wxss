@@ -1,4 +1,4 @@
-@import './style//iconfont.wxss';
+@import './style/iconfont.wxss';
 
 page,view,text,navigator{
   padding: 0;
