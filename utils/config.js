@@ -1,6 +1,6 @@
 const urls = {
   "dev": "https://test2.7yueye.com",//开发
-  "test": "http://192.168.0.113:8089/zhuoya-syg",//测试
+  "test": "http://192.168.0.109:8087/zhuoya-bp",//测试
   "pro": "https://api.yueye7.com/v16"//正式
 }
 const Config = {

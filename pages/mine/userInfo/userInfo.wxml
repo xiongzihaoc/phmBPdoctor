@@ -13,5 +13,5 @@
 		<text class="fontWeight">联系电话</text>
 		<input class="user_info_name fontColor" value="{{phone}}" placeholder="请输入手机号码" bindinput="bindPhone"></input>
 	</view>
-	<view class="btnSave" bindtap="btnSave">保存</view>
+	<!-- <view class="btnSave" bindtap="btnSave">保存</view> -->
 </view>

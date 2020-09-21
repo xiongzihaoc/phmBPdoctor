@@ -68,10 +68,22 @@ Page({
         console.log(res);
 
       },
-      error(error){
+      error(error) {
         console.log(error);
-        
+
       },
+    })
+  },
+  // 产品反馈
+  bindFeedbackOfProduct: function () {
+    wx.navigateTo({
+      url: '/pages/mine/feedbackPro/feedbackPro',
+    })
+  },
+  // 反馈历史
+  bindFeedbackHistory: function () {
+    wx.navigateTo({
+      url: '/pages/mine/feedbackHis/feedbackHis',
     })
   },
   /**

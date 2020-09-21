@@ -1,5 +1,5 @@
 import { Patient } from "./index_modle"
-import{TimUtils} from "../../utils/TimUtils.js"
+import { TimUtils } from "../../utils/TimUtils.js"
 const timUtils = new TimUtils();
 let patientInfo = new Patient();
 Page({
@@ -16,15 +16,24 @@ Page({
     healthTotal: 1,
     healthPageNum: 1,
     healthPageSize: 6,
-    isLogin:false,
+    isLogin: false,
   },
   // 点击单个患者查看详情
   patientListTap: function (e) {
+    console.log(e);
+    
     const id = e.currentTarget.dataset.patientmessage.patientUuid
+    const isOperationRecord = e.currentTarget.dataset.patientmessage.isOperationRecord
     wx.setStorageSync('patientUuid', id)
-    wx.navigateTo({
-      url: '/pages/patient/patientDetail/index?id=' + id,
-    })
+    if(isOperationRecord == 0){
+      wx.navigateTo({
+        url: '/pages/patient/isMessage/isMessage?id=' + id,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/patient/patientDetail/index?id=' + id,
+      })
+    }
   },
   // 获取所有患者列表
   getUserInfo: function () {
@@ -76,26 +85,26 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (e) { 
+  onShow: function (e) {
     let that = this;
     let openId = wx.getStorageSync('openId');
-    let isExist  = wx.getStorageSync('isExist');
+    let isExist = wx.getStorageSync('isExist');
     if (openId) {
       this.setData({
         isLogin: true
       });
-      if(isExist == "0") {
+      if (isExist == "0") {
         wx.navigateTo({
           url: '../bindNum/bindNum',
         })
-      }else {
+      } else {
         wx.showLoading({
           title: '加载中...',
         })
         this.getUserInfo();
         timUtils.LoginTim();
       }
-      
+
     } else {
       wx.clearStorage();
       wx.nextTick(() => {

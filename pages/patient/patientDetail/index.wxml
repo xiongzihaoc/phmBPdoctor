@@ -87,7 +87,7 @@
 		<view>
 		</view>
 	</view>
-	<!-- 维护时间 维护医院 -->
+	<!-- 护理记录 -->
 	<view class="questionnaire  commonStyle">
 		<view class="questionImg">
 			<text class="fontWeight quesRecord">护理记录</text>
@@ -96,11 +96,12 @@
 				<image class="jtImg" src="../../../images/Rjt.png"></image>
 			</view>
 		</view>
-		<!-- 维护时间 维护医院 -->
+		<!-- 护理记录 -->
 		<view class="userInfo">
 			<view class="userInfoLeft maintainInfo">
-				<view class="patientImage">
-					<image src="/images/finish.png" class="patientImg"></image>
+				<view class="nurseRecord">
+					<text class="iconfont iconhuli nurseIcon"></text>
+					<!-- <image src="/images/finish.png" class="patientImg"></image> -->
 				</view>
 				<view style="margin-left:30rpx;">
 					<view class="isFinish">
@@ -117,6 +118,6 @@
 		<view>
 		</view>
 	</view>
-	<button type="primary" style="margin-top: 20rpx;margin-bottom: 20rpx" bindtap="sendMessage">发信息</button>
-	<button bindtap="removeBinding" type="warn">解除绑定</button>
+	<view class="sendMessage" style="margin-top: 20rpx;margin-bottom: 20rpx" bindtap="sendMessage">发信息</view>
+	<view class="removeBinding" bindtap="removeBinding">解除绑定</view>
 </view>

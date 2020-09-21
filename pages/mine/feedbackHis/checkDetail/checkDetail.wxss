@@ -1,0 +1,5 @@
+@import '../feedbackHis.wxss';
+
+.box {
+  padding: 30rpx;
+}

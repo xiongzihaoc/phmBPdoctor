@@ -32,6 +32,21 @@
   border-radius: 20rpx;
 }
 
+.nurseRecord {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #1ADCA9;
+}
+
+.nurseIcon {
+  font-size: 50rpx;
+  color: #fff;
+}
+
 .patientName {
   font-weight: 700;
   margin: 10rpx 0 10rpx 0;
@@ -92,6 +107,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 10rpx;
   /* justify-content: flex-start; */
 }
 
@@ -156,4 +172,22 @@
   border-radius: 20rpx;
   width: 144rpx;
   height: 144rpx;
+}
+
+.sendMessage,
+.removeBinding {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20rpx 40rpx;
+  border-radius: 60rpx;
+  color: #fff;
+}
+
+.sendMessage {
+  background-color: #1ADCA9;
+}
+
+.removeBinding {
+  background-color: #FDBD2F;
 }

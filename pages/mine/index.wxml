@@ -17,7 +17,7 @@
 			</view>
 		</view>
 	</view>
-	<!-- 个人信息  二维码 -->
+	<!-- 个人信息 -->
 	<view class="title" bindtap="bindJumpUserInfo">
 		<view class="userinfo">
 			<image src="/images/paitent.png"></image>
@@ -25,6 +25,7 @@
 		</view>
 		<image src="/images/Rjt_ccc.png"></image>
 	</view>
+	<!-- 二维码 -->
 	<view class="title" bindtap="viewErweima">
 		<view class="userinfo">
 			<image src="/images/erweima.png"></image>
@@ -34,6 +35,22 @@
 			<text style="color:#1ADCA9;margin-right:5rpx;" class="fontWeight">查看</text>
 			<image src="/images/Rjt_ccc.png"></image>
 		</view>
+	</view>
+	<!-- 产品反馈 -->
+	<view class="title" bindtap="bindFeedbackOfProduct">
+		<view class="userinfo">
+			<image src="/images/consult_text_icon.png"></image>
+			<text class="content">产品反馈</text>
+		</view>
+		<image src="/images/Rjt_ccc.png"></image>
+	</view>
+	<!-- 反馈历史 -->
+	<view class="title" bindtap="bindFeedbackHistory">
+		<view class="userinfo">
+			<image src="/images/history_.png"></image>
+			<text class="content">反馈历史</text>
+		</view>
+		<image src="/images/Rjt_ccc.png"></image>
 	</view>
 </view>
 <van-dialog bind:close="closeViewErweima" showConfirmButton="{{false}}" use-slot show="{{qCodeShow}}" closeOnClickOverlay overlay>

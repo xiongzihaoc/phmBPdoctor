@@ -56,14 +56,13 @@
   align-items: center;
 }
 
-.title:last-child {
+.title {
   margin-top: 20rpx;
 }
 
 .title image {
   width: 60rpx;
   height: 60rpx;
-
 }
 
 .content {

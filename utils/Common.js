@@ -2,8 +2,9 @@ import { Config } from "config.js";
 class Comm{
   constructor(){
   }
-  request(params){
+  request(params){    
     let that = this;
+    let token = wx.getStorageSync('openId')
     let url =  Config.baseUrl+params.url;
     if(!params.type){
       params.type = "POST";
@@ -15,6 +16,7 @@ class Comm{
       url: url,
       data: params.data,
       header: {
+        Authorization:token,
         'content-type': params.contentType,
       },
       method: params.type,

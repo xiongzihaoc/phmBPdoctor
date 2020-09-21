@@ -51,12 +51,13 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  background-color:red;
+  background-color: red;
   text-align: center;
   justify-content: center;
   align-items: center;
 }
-.orange text{
+
+.orange text {
   display: flex;
   font-size: 25rpx;
   color: #fff;
@@ -68,4 +69,14 @@
   position: absolute;
   right: 40rpx;
   top: 30rpx;
+}
+
+.kong {
+  margin-top: 300rpx;
+  text-align: center;
+}
+
+.iconkong {
+  font-size: 64rpx;
+  color: #a8a8a8;
 }
