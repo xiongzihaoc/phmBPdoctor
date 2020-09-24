@@ -21,9 +21,15 @@
           <text>型号</text>
         </view>
         <view class="model_box">
-          <picker bindchange="bindInstrumentChange" disabled="{{instrDisabled}}" value="{{InstrumentName}}"
+          <!-- <picker bindchange="bindInstrumentChange" disabled="{{instrDisabled}}" value="{{InstrumentName}}"
             range="{{InstrumentList}}" range-key="name">
             <view class="user_info_sex fontColor">{{InstrumentName}}</view>
+          </picker> -->
+          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
+            value="{{multiIndex}}" range="{{multiArray}}">
+            <view class="picker">
+              {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
+            </view>
           </picker>
           <image src="/images/Rjt_ccc.png"></image>
         </view>
@@ -35,8 +41,8 @@
   <view class="feedback_box">
     <view class="productInformation_title fontWeight">反馈问题</view>
     <view>
-      <textarea value="{{instrCondition}}" placeholder="请输入问题或建议..."
-        bindinput="bindCondition" placeholder-style="font-size:28rpx;" />
+      <textarea value="{{instrCondition}}" placeholder="请输入问题或建议..." bindinput="bindCondition"
+        placeholder-style="font-size:28rpx;" />
       </view>
   </view>
   <!-- 图片 -->

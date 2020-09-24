@@ -3,7 +3,8 @@
 	<!-- 列表 -->
 	<view wx:if="{{messageList.length > 0}}">
 		<block wx:for="{{messageList}}" wx:key="conversationID">
-			<view class="messageList" bindtap="goChat" data-id="{{item.conversationID}}" data-userId="{{item.userProfile.userID}}">
+			<view class="messageList" bindtap="goChat" data-id="{{item.conversationID}}"
+				data-userId="{{item.userProfile.userID}}">
 				<!-- 头像 -->
 				<view class="avatar">
 					<image src="{{item.userProfile.avatar==''? '/images/finish.png':item.userProfile.avatar}}"></image>
@@ -16,7 +17,7 @@
 					<view class="messageIns">
 						<text wx:if="{{item.lastMessage.type=='TIMTextElem'}}">{{item.lastMessage.payload.text}}</text>
 						<text wx:elif="{{item.lastMessage.type=='TIMImageElem'}}">[图片]</text>
-						<text  wx:elif="{{item.lastMessage.type=='TIMSoundElem'}}">[语音]</text>
+						<text wx:elif="{{item.lastMessage.type=='TIMSoundElem'}}">[语音]</text>
 					</view>
 				</view>
 				<!-- 未读黄点 -->
