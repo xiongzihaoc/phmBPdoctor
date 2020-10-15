@@ -1,4 +1,5 @@
 <wxs module="date" src="../../utils/date.wxs"></wxs>
+
 <view class="box">
 	<!-- 列表 -->
 	<view wx:if="{{messageList.length > 0}}">
@@ -15,7 +16,7 @@
 						<text>{{item.userProfile.nick}}</text>
 					</view>
 					<view class="messageIns">
-						<text wx:if="{{item.lastMessage.type=='TIMTextElem'}}">{{item.lastMessage.payload.text}}</text>
+						<text wx:if="{{item.lastMessage.type=='TIMTextElem'}}" style="display:inline-block;width:400rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap">{{item.lastMessage.payload.text}}</text>
 						<text wx:elif="{{item.lastMessage.type=='TIMImageElem'}}">[图片]</text>
 						<text wx:elif="{{item.lastMessage.type=='TIMSoundElem'}}">[语音]</text>
 					</view>

@@ -1,8 +1,8 @@
 <view class="box">
 	<view class="time">
 		<view>
-		<text class="iconfont iconriqixuanze" style="margin-right:10rpx;"></text>
-		<text>推送时间</text>
+			<text class="iconfont iconriqixuanze" style="margin-right:10rpx;"></text>
+			<text>推送时间</text>
 		</view>
 		<picker mode="date" value="{{date}}" start="1970-09-01" end="2100-09-01" bindchange="bindDateChange">
 			<view class="picker" style="color:#A8A8A8;font-szie:30rpx;font-weight:400">
@@ -39,7 +39,14 @@
 		</checkbox-group>
 	</view>
 	<!-- 保存 -->
-	<view class="btnSave" bindtap="btnSave">
-		保存
-	</view>
+	<block wx:if="{{editId == 1}}">
+		<view class="btnSave" bindtap="editBtnSave">
+			保存
+		</view>
+	</block>
+	<block wx:else>
+		<view class="btnSave" bindtap="btnSave">
+			保存
+		</view>
+	</block>
 </view>

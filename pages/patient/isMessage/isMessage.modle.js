@@ -92,15 +92,35 @@ class Patient extends Comm {
     }
     this.request(props);
   }
+  getDoctorList(callback) {
+    var doctorUuid = wx.getStorageSync('openId');
+    let props = {
+      url: "/api/prepuce/nurse/getDeptDoctor",
+      contentType: 'application/json',
+      data: {},
+      sCallBack: res => {
+        wx.hideLoading();
+        callback(res);
+      },
+      eCallBack: err => {
+        console.log(err);
+        wx.hideLoading();
+        wx.showToast({
+          title: '请求出错,请稍后重试!!!',
+          icon: 'none'
+        })
+      }
+    }
+    this.request(props);
+  }
   // 保存
   btnSave(messageObj, callback) {
     let props = {
       url: "/api/prepuce/doctor/maintainOperation",
       contentType: 'application/json',
-      // Authorization:""
       data: {
         uuid: messageObj.uuid,
-        doctoruuid: messageObj.doctoruuid,
+        doctorUuid: messageObj.doctoruuid,
         prepuceOperateTime: messageObj.prepuceOperateTime,
         prepuceOperateMethod: messageObj.prepuceOperateMethod,
         feedbackContent: messageObj.feedbackContent,

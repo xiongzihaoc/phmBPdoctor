@@ -1,6 +1,6 @@
 .box {
   background-color: #fff;
-  padding: 0 40rpx;
+  padding: 0 40rpx 40rpx;
   box-sizing: border-box;
 }
 
@@ -44,10 +44,10 @@
   padding: 10rpx 0;
   box-sizing: border-box;
   font-weight: 700;
-  font-size: 28rpx;
+  font-size: 30rpx;
   text-align: center;
   color: #fff;
-  background-color: #E6A23C;
+  background-color: #FDBD2F;
 }
 
 .instrCondition {
@@ -56,7 +56,15 @@
 
 textarea {
   width: 100%;
-  height: 500rpx;
+  min-height: 500rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 30rpx;
+  background-color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+}
+
+.infoListBox {
   padding: 20rpx;
   box-sizing: border-box;
   border-radius: 30rpx;

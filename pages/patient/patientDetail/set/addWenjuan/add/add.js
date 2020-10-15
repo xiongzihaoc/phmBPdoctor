@@ -12,6 +12,7 @@ Page({
   data: {
     date: '',
     name: "",
+    editIndex: 0,
     wenjuanList: [],
   },
   // 选择完量表 确认
@@ -24,7 +25,6 @@ Page({
       title: '加载中...',
     });
     AddInfo.getWenJuanList(this.data.name, (res) => {
-      wx.setStorageSync('wenjuanList', res)
       this.setData({
         wenjuanList: res
       })
@@ -55,7 +55,7 @@ Page({
     this.setData({
       checked
     })
-    // console.log(this.data.checked);
+    console.log(this.data.checked);
   },
   // 选择文件保存
   btnSave: function () {
@@ -96,7 +96,6 @@ Page({
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];  //上一个页面
     console.log("上一个页面数据");
-
     var packagesList = prevPage.data.packagesList;
     var packList = {
       time: that.data.date,
@@ -116,6 +115,62 @@ Page({
       })
     }
     var checkPackagesList = prevPage.data.checkedList;
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  // 修改保存
+  editBtnSave: function (e) {
+    let that = this
+    // 复选框获取的id与对象数组进行遍历得到 该id下的整个对象
+    var idlist = that.data.checked
+    var InfoList = that.data.wenjuanList
+    var checkedList = []
+    if (idlist == undefined || idlist.length == 0) {
+      wx.showToast({
+        title: '请选择量表',
+        icon: "none"
+      });
+      return;
+    }
+    for (var i = 0; i < idlist.length; i++) {
+      for (var j = 0; j < InfoList.length; j++) {
+        if (idlist[i] == InfoList[j].uuid) {
+          checkedList.push(InfoList[j])
+        }
+      }
+    }
+    if (!this.data.date) {
+      wx.showToast({
+        title: '请选择推送时间',
+        icon: "none"
+      });
+      return;
+    }
+    if (checkedList.length == 0) {
+      wx.showToast({
+        title: '请选择量表',
+        icon: "none"
+      });
+      return;
+    }
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];   //当前页面
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    var packList = {
+      time: that.data.date,
+      sheetList: checkedList
+    };
+    console.log(packList);
+    let edit = prevPage.data.packagesList
+    console.log(edit);
+
+    edit[that.data.editIndex] = packList
+    console.log(edit);
+
+    prevPage.setData({
+      packagesList: edit,
+    })
     wx.navigateBack({
       delta: 1,
     })
@@ -165,23 +220,10 @@ Page({
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];  //上一个页面
-    var wenjuanList = wx.getStorageSync('wenjuanList')
-    console.log(wenjuanList);
     // 1 状态为 修改问卷操作
     if (that.data.editId == 1) {
       var index = that.data.editIndex
-      var checkPackagesList = prevPage.data.packagesList[index].sheetList;
-
-      for (var i = 0; i < checkPackagesList.length; i++) {
-        for (var j = 0; j < wenjuanList.length; j++) {
-          if (checkPackagesList[i].id == wenjuanList[j].id) {
-
-            this.setData({
-              wenjuanList: wenjuanList[j].checked
-            })
-          }
-        }
-      }
+      var checkPackagesList = prevPage.data.packagesList[index]
       this.setData({
         date: checkPackagesList.time
       })

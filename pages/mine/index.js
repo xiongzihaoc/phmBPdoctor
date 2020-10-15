@@ -102,7 +102,14 @@ Page({
   onReady: function () {
 
   },
-
+  login:function(){
+    wx.clearStorage();
+    wx.nextTick(() => {
+      wx.navigateTo({
+        url: '/pages/Authorization/index',
+      })
+    });
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -118,22 +125,11 @@ Page({
         title: '加载中...',
       })
       RegModleInfo.getUserInfo((data) => {
-        console.log(data);
         that.setData({
           userName: data.name,
           headerUrl: data.avatarUrl
         });
       });
-    } else {
-      if (!app.userIndex) {
-        app.userIndex = true;
-        wx.clearStorage();
-        wx.nextTick(() => {
-          wx.navigateTo({
-            url: '/pages/Authorization/index',
-          })
-        });
-      }
     }
   },
 

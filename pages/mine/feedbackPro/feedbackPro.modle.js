@@ -50,6 +50,7 @@ class Patient extends Comm {
       contentType: 'application/json',
       data: {
         goodsModelId: messageObj.goodsModelId,
+        goodsId: messageObj.goodsId,
         userType: messageObj.userType,
         vendorId: messageObj.vendorId,
         patientUuid: messageObj.patientUuid,

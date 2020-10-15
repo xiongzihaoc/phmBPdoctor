@@ -25,12 +25,6 @@
 			</view>
 		</view>
 		<view class="content">
-			<!-- 状态 -->
-			<view class="commonStyle">
-				<text>状态：</text>
-				<text wx:if="{{Matter.state == 1}}" class="fontWeight">已解决</text>
-				<text wx:else style="color:#FDBD2F;" class="fontWeight">未解决</text>
-			</view>
 			<!-- 症状 -->
 			<view class="commonStyle" style="margin:10rpx 0">
 				<text>症状：</text>

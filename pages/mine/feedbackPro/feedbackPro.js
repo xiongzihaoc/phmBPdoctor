@@ -1,21 +1,72 @@
 import { Patient } from "./feedbackPro.modle"
 let patientInfo = new Patient();
 var utils = require("../../../utils/util");
+import { uploadUtil } from "../../../utils/uploadUtil.js";
+const uploadutil = new uploadUtil();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    searchTimerPopupShow: false,
     imageList: [],
     ManufacturerName: "请选择",
     ManufacturerValue: "",
     ManufacturerList: [],
-    InstrumentName: "请选择",
-    InstrumentValue: "",
-    getInstrumentList: [],
-    instrDisabled: true,
+    InstrumentList: [],
+    insIndex: 0,
+    typeIndex: 0,
+    insname: "请选择",
+    insId: "",
+    typeId: "",
+    modleList: [],
     instrCondition: "",
+    tempData:[],
+    travelResource:[],
+    setState:1,
+    picNum:0,
+  },
+  selectType: function () {
+    if (this.data.ManufacturerValue == "" || this.data.ManufacturerValue == null || this.data.ManufacturerValue == undefined) {
+      wx.showToast({
+        title: '请选择品牌',
+        icon: "none",
+      })
+      return
+    } else {
+      this.setData({
+        searchTimerPopupShow: true,
+        modleList: this.data.InstrumentList[0].models
+      });
+    }
+  },
+  done: function (e) {
+    let that = this
+    var insId = this.data.InstrumentList[this.data.insIndex].id
+    console.log(insId);
+
+    if (this.data.InstrumentList[this.data.insIndex].models.length <= 0) {
+      that.setData({
+        insname: this.data.InstrumentList[this.data.insIndex].name,
+        insId: insId,
+        searchTimerPopupShow: false,
+      })
+    } else {
+      var typeId = this.data.InstrumentList[this.data.insIndex].models[this.data.typeIndex].id
+      that.setData({
+        insname: this.data.InstrumentList[this.data.insIndex].name + '-' + this.data.InstrumentList[this.data.insIndex].models[this.data.typeIndex].model,
+        insId: insId,
+        typeId: typeId,
+        searchTimerPopupShow: false,
+      })
+    }
+
+  },
+  clear: function () {
+    this.setData({
+      searchTimerPopupShow: false,
+    })
   },
   // 获取器械品牌列表
   getManufacturerList: function () {
@@ -50,18 +101,20 @@ Page({
     that.setData({
       ManufacturerName: that.data.ManufacturerList[ManufacturerIndex].name,
       ManufacturerValue: that.data.ManufacturerList[ManufacturerIndex].id,
-      instrDisabled: false,
     })
     this.getInstrumentList()
   },
-  // 选择器械类型
-  bindInstrumentChange: function (e) {
+  // // 选择器械类型
+  bindchange: function (e) {
+    var qxindex = e.detail.value[0]
+    var xhindex = e.detail.value[1]
     let that = this
-    let InstrumentIndex = e.detail.value
     that.setData({
-      InstrumentName: that.data.InstrumentList[InstrumentIndex].name,
-      InstrumentValue: that.data.InstrumentList[InstrumentIndex].id
+      insIndex: qxindex,
+      typeIndex: xhindex,
+      modleList: this.data.InstrumentList[qxindex].models
     })
+
   },
   // 输入反馈问题
   bindCondition: function (e) {
@@ -73,74 +126,124 @@ Page({
     })
   },
   // 上传图片
-  upload: function () {
-    let that = this
+  delPic(e){
+    const index = e.currentTarget.dataset.index;
+    let newTempData = this.data.tempData;
+    let travelResource = this.data.travelResource;
+    newTempData.splice(index, 1);
+    travelResource.splice(index,1);
+    this.setData({
+        tempData:newTempData,
+        travelResource: travelResource
+    });
+    this.setData({
+        picNum:this.data.picNum-1
+    });
+    console.log(this.data.tempData);
+    console.log(this.data.travelResource);
+},
+  uploadPic(){
+    let that = this;
+    if(!this.data.setState){
+        return false;
+    }
     wx.chooseImage({
-      count: 3,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-        console.log(res);
-        // tempFilePath可以作为img标签的src属性显示图片
-        // const tempFilePaths = res.tempFilePaths
-        // console.log(tempFilePaths);
-        if (that.data.imageList.length < 9) {
-          that.setData({
-            imageList: that.data.imageList.concat(res.tempFilePaths)
-          })
-        } else {
-          wx.showToast({
-            title: '最多只能上传9张图片',
-            icon: 'none'
-          })
-          return
-        }
+        count: 9-that.data.picNum,
+        success(res) {
+            const tempFilePaths = res.tempFilePaths
+            let newTempFilePaths = tempFilePaths.map((tempFile)=>{
+                return {
+                    progress : 0,
+                    url: tempFile,
+                    flag:1
+                }
+            });
+            let picNum = that.data.picNum+res.tempFilePaths.length;
+            that.setData({
+                tempData: that.data.tempData.concat(newTempFilePaths),
+                setState:0,
+                picNum: picNum
+            });
+            wx.showLoading({
+                title: '上传图片中',
+            })
+            uploadutil.uploadImg(tempFilePaths,res=>{
+                let newPicInfo = res.map((pic,index)=>{
+                    console.log(index);
+                    console.log(res.length);
+                    let picUrl = pic.data;
+                    that.setData({
+                        travelResource:that.data.travelResource.concat(picUrl),
+                        setState:1
+                    });
+                    if(index == res.length-1){
+                        wx.hideLoading();
+                    }
+                });
+                console.log(that.data.travelResource);
+            },err=>{
+                console.log(err);
+            },upData=>{
+                let file = upData['file'];
+                let tempData = that.data.tempData;
+                tempData.map((temp,index)=>{
+                    if (temp.url == file){
+                        temp.progress = upData["progress"];
+                    }
+                }); 
+                that.setData({
+                    tempData:tempData
+                });
+            });
+        },
+        fail(err){
+            if (err.errMsg ==="chooseImage:fail cancel"){
+                wx.showToast({
+                    title: '取消选择',
+                    icon: "none"
+                    })
+                }
+            }
+        })
+    },
 
-      }
-    })
-  },
   // 保存
   btnSave: function (e) {
     let createBy = wx.getStorageSync('openId')
     let patientUuid = wx.getStorageSync('patientUuid')
     let that = this
-    let messageObj = {
-      patientUuid: patientUuid,
-      userType: 0,
-      content: that.data.instrCondition,
-      vendorId: that.data.ManufacturerValue,
-      goodsModelId: that.data.InstrumentValue,
-      photos: that.data.imageList
-    }
-    console.log(messageObj);
-
-    wx.showLoading({
-      title: '加载中...',
-    });
-    patientInfo.btnSave(messageObj, (res) => {
-      if (res.code != 200) {
-        wx.showToast({
-          title: '保存失败',
-        })
-      } else {
-        wx.switchTab({
-          url: '/pages/mine/index',
-        })
+    if (this.data.ManufacturerValue == "" || this.data.insId == "") {
+      wx.showToast({
+        title: '请选择品牌或型号',
+        icon: "none"
+      })
+      return
+    } else {
+      let messageObj = {
+        patientUuid: patientUuid,
+        userType: 0,
+        content: that.data.instrCondition,
+        vendorId: that.data.ManufacturerValue,
+        goodsId: that.data.insId,
+        goodsModelId: that.data.typeId,
+        photos: that.data.travelResource
       }
-    });
-
+      wx.showLoading({
+        title: '加载中...',
+      });
+      patientInfo.btnSave(messageObj, (res) => {
+        if (res.code != 200) {
+          wx.showToast({
+            title: '保存失败',
+          })
+        } else {
+          wx.switchTab({
+            url: '/pages/mine/index',
+          })
+        }
+      });
+    }
   },
-  // 预览图片
-  // preViewImg: function (e) {
-  //   console.log(e);
-  //   var url = utils.getDataSet(e, "url");
-  //   var urls = [];
-  //   urls.push(url);
-  //   wx.previewImage({
-  //     current: url, // 当前显示图片的http链接
-  //     urls: urls // 需要预览的图片http链接列表
-  //   })
-  // },
   /**
    * 生命周期函数--监听页面加载
    */

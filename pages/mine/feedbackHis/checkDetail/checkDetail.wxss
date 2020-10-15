@@ -3,3 +3,6 @@
 .box {
   padding: 30rpx;
 }
+.report {
+  min-height: 260rpx;
+}

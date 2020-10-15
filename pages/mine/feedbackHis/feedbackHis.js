@@ -22,7 +22,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadmoreShow: "false",
+    loadmoreType: "end",
+    healthTotal: 1,
+    healthPageNum: 1,
+    healthPageSize: 5,
     ManufacturerList: [],
+    closeIconShow: false,
     searchTimerPopupShow: false,
     startTime: "",
     startDate: "",
@@ -41,10 +47,12 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    patientInfo.getManufacturerList((res) => {
+    patientInfo.getManufacturerList(this.data.healthPageNum, this.data.healthPageSize, this.data.startTime, this.data.endTime, (res) => {
       console.log(res);
+      var num = Math.ceil(res.count/that.data.healthPageSize);
       that.setData({
-        ManufacturerList: res.data
+        ManufacturerList: that.data.ManufacturerList.concat(res.data),
+        healthTotal:num
       })
     });
   },
@@ -67,24 +75,61 @@ Page({
     })
   },
   // 选择时间
-  selectTimer: function (e) {
+  selectTimer: function () {
+    
+    if (this.data.startTime == '') {
+      this.setData({
+        startTime: utils.getCurrentDate(),
+      });
+    }
+    if (this.data.endTime == '') {
+      this.setData({
+        endTime: utils.getCurrentDate(),
+      });
+    }
     this.setData({
       searchTimerPopupShow: true
     });
   },
   done: function () {
-    this.setData({
-      chooseTime: this.data.startTime + " / " + this.data.endTime,
-      searchTimerPopupShow: false,
-      healthPageNum: 1,
-      healthTotal: 1
-    });
-    this.getManufacturerList()
+    // console.log(this.data.startTime);
+    var start = new Date(this.data.startTime).getTime()
+    var end = new Date(this.data.endTime).getTime()
+    if (start > end) {
+      wx.showToast({
+        title: '起始时间不能大于结束时间',
+        icon: "none"
+      })
+      return
+    } else {
+      this.setData({
+        closeIconShow: true,
+        chooseTime: this.data.startTime + " / " + this.data.endTime,
+        searchTimerPopupShow: false,
+        healthPageNum: 1,
+        healthTotal: 1,
+        ManufacturerList:[]
+      });
+      this.getManufacturerList()
+    }
   },
   clear: function () {
     this.setData({
       searchTimerPopupShow: false
     });
+  },
+  // 清除所选时间
+  closeIcon: function (e) {
+    this.setData({
+      closeIconShow: false,
+      ManufacturerList: [],
+      chooseTime: "",
+      startTime: "",
+      endTime: "",
+      startDate: "",
+      endDate: "",
+    });
+    this.getManufacturerList()
   },
   changeTimerType: function (e) {
     var type = utils.getDataSet(e, "type");
@@ -122,11 +167,6 @@ Page({
       });
     });
     this.getManufacturerList()
-    this.setData({
-      startTime: utils.getCurrentDate(),
-      endTime: utils.getCurrentDate(),
-      // value:that.data.value.concat()
-    });
   },
 
   /**
@@ -168,7 +208,20 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let that = this;
+    if(this.data.healthTotal > this.data.healthPageNum){
+      this.setData({
+        loadmoreShow:true,
+        loadmoreType:"loading",
+        healthPageNum:that.data.healthPageNum+1
+      });
+      this.getManufacturerList();
+    }else {
+      this.setData({
+        loadmoreShow:true,
+        loadmoreType:"end"
+      });
+    }
   },
 
   /**

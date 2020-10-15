@@ -15,24 +15,23 @@ Page({
       title: '授权中...',
     });
     regModle.getUserInfo(e.detail.encryptedData, e.detail.iv, this.data.code, (data) => {
-      console.log(data);
       wx.setStorageSync('token', data.access_token);
       wx.setStorageSync('openId', data.openId);
       wx.setStorageSync('userName', data.userInfo.name);
       wx.setStorageSync('avatarUrl', data.userInfo.avatarUrl);
       wx.setStorageSync('isExist', data.isExist);
-      
-      if(data.isExist == 0){
+      wx.setStorageSync('accountType', data.userInfo.accountType);
+      if (data.isExist == 0) {
         wx.redirectTo({
           url: '../bindNum/bindNum',
         })
-      }else {
+      } else {
         wx.setStorageSync('tencentImUser', data.userInfo.tencentImUser);
         wx.setStorageSync('tencentImPassword', data.userInfo.tencentImPassword);
         wx.navigateBack({
         });
       }
-      
+
     });
   },
   /**

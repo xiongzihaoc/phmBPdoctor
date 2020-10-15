@@ -6,7 +6,7 @@
 		</view>
 		<view class="noFinish_content">
 			<view class="detail">
-				<image src="/images/finish.png"></image>
+				<!-- <image src="/images/finish.png"></image> -->
 				<view style="margin-left:10rpx;">
 					<text class="detail_title">{{userInfoObj.qunaireName}}</text>
 					<text class="detail_time">得分：{{userInfoObj.qunaireScore}}</text>
@@ -28,15 +28,13 @@
 				<view class="detail">
 					<view style="margin-left:10rpx;">
 						<view style="display:flex">
-							<text class="detail_title detail-ques">题目：{{index+1}}.</text>
+							<text class="detail_title detail-ques">{{index+1}}.</text>
 							<text class="detail_title detail-content">{{item.quTitle}}</text>
 						</view>
 						<text class="detail_time">答案：{{item.anContent}}</text>
 					</view>
 				</view>
 			</block>
-
-
 		</view>
 	</view>
 </view>

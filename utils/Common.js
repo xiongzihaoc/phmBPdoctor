@@ -4,7 +4,7 @@ class Comm{
   }
   request(params){    
     let that = this;
-    let token = wx.getStorageSync('openId')
+    let token = wx.getStorageSync('openId')    
     let url =  Config.baseUrl+params.url;
     if(!params.type){
       params.type = "POST";

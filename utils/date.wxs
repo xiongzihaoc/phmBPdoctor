@@ -1,11 +1,19 @@
 var filter = {
+
+  paseDateTime:function(time){
+    
+  },
+  paseJson:function(json){
+    var json = JSON.parse(json);
+    return json;
+  },
   getDateTime: function (time) {
     function zeroize(num) {
       return (num.length == 1 ? '0' : '') + num;
     }
     var timestamp = parseInt(getDate(time).getTime());
     var curTimestamp = parseInt(getDate().getTime() / 1000);
-    
+
     var timestampDiff = curTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
 
     var curDate = getDate(curTimestamp * 1000); // 当前时间日期对象
@@ -19,7 +27,7 @@ var filter = {
     } else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
       return zeroize(H) + ':' + zeroize(i);
     } else {
-      let newDate = new Date((curTimestamp - 86400) * 1000); // 参数中的时间戳加一天转换成的日期对象
+      var newDate = getDate((curTimestamp - 86400) * 1000); // 参数中的时间戳加一天转换成的日期对象
       if (newDate.getFullYear() == Y && newDate.getMonth() + 1 == m && newDate.getDate() == d) {
         return '昨天' + zeroize(H) + ':' + zeroize(i);
       } else if (curDate.getFullYear() == Y) {
@@ -29,30 +37,30 @@ var filter = {
       }
     }
   },
-  timedifference:function(list,index){
-    if(index <= list.length-1){
-      var currentTime = list[index].time;
-      var nextTime = list[index+1].time;
-  
+  timedifference: function (list, index) {
+    if (index < list.length - 1) {
+      var time = list[index].time;
+      var nextTime = list[index + 1].time;
       function zeroize(num) {
         return (num.length == 1 ? '0' : '') + num;
       }
-      var timestamp = parseInt(getDate(currentTime).getTime());
-      var curTimestamp = parseInt(getDate(nextTime).getTime());
-      var timestampDiff = curTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
-      console.log("时间差"+index);
-      console.log(timestampDiff);
-      
-      if(timestampDiff > 60*5){
-        var curDate = getDate(curTimestamp * 1000); // 当前时间日期对象
-        var tmDate = getDate(timestamp * 1000);  // 参数时间戳转换成的日期对象
-        var Y = tmDate.getFullYear(), m = tmDate.getMonth() + 1, d = tmDate.getDate();
-        var H = tmDate.getHours(), i = tmDate.getMinutes(), s = tmDate.getSeconds();
-        //当天
+      var timestamp = parseInt(getDate(time).getTime());
+      var curTimestamp = parseInt(getDate().getTime() / 1000);
+      var nextTimestamp = parseInt(getDate(nextTime).getTime());
+  
+      var timestampDiff = nextTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
+  
+      var curDate = getDate(curTimestamp * 1000); // 当前时间日期对象
+      var tmDate = getDate(timestamp * 1000);  // 参数时间戳转换成的日期对象
+      var Y = tmDate.getFullYear(), m = tmDate.getMonth() + 1, d = tmDate.getDate();
+      var H = tmDate.getHours(), i = tmDate.getMinutes(), s = tmDate.getSeconds();
+
+
+      if (timestampDiff > 60*5) { // 大于5分钟
         if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
           return zeroize(H) + ':' + zeroize(i);
-        } else {
-          let newDate = new Date((curTimestamp - 86400) * 1000); // 参数中的时间戳加一天转换成的日期对象
+        }else {
+          var newDate = getDate((curTimestamp - 86400) * 1000); // 参数中的时间戳加一天转换成的日期对象
           if (newDate.getFullYear() == Y && newDate.getMonth() + 1 == m && newDate.getDate() == d) {
             return '昨天' + zeroize(H) + ':' + zeroize(i);
           } else if (curDate.getFullYear() == Y) {
@@ -61,18 +69,20 @@ var filter = {
             return Y + '-' + zeroize(m) + '-' + zeroize(d);
           }
         }
-      }else{
+      } else {
         return "";
       }
-    }else{
+    } else {
       return "";
     }
-    
-    
+
+
   }
 }
 // 导出对外暴露的属性
 module.exports = {
   getDateTime: filter.getDateTime,
-  timedifference:filter.timedifference
+  timedifference: filter.timedifference,
+  paseJson:filter.paseJson,
+  paseDateTime:filter.paseDateTime
 }

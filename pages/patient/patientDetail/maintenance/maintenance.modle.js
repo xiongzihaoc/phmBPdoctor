@@ -4,7 +4,8 @@ class Maint extends Comm {
   constructor() {
     super();
   }
-  getMaintInfo(patientUuid, createTime, endTime, callback) {
+  getMaintInfo(pageNum, pageSize, createTime, endTime, callback) {
+    var patientUuid = wx.getStorageSync('patientUuid')
     let props = {
       url: "/api/getMaintain",
       contentType: 'application/json',
@@ -12,12 +13,12 @@ class Maint extends Comm {
         "patientUuid": patientUuid,
         "actualTime": createTime,
         "endTime": endTime,
-        pageNum: 1000,
-        pageSize: 1000,
+        "pageNum": pageNum,
+        "pageSize": pageSize,
       },
       sCallBack: res => {
         wx.hideLoading();
-        callback(res.data);
+        callback(res);
       },
       eCallBack: err => {
         wx.hideLoading();

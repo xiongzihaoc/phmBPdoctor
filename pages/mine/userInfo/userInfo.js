@@ -8,7 +8,7 @@ Page({
    */
   data: {
     id: "",
-    name: "要一个黄昏",
+    name: "",
     genderIndex: 0,
     gender: "",
     genderList: ['男', '女'],
@@ -30,74 +30,11 @@ Page({
       }
       this.setData({
         name: res.name,
+        hospitalName:res.hospitalName,
         gender: sex,
         phone: res.phone
       })
 
-    });
-  },
-  bindName: function (e) {
-    this.setData({
-      name: e.detail.value
-    })
-  },
-  bindPhone: function (e) {
-    this.setData({
-      phone: e.detail.value
-    })
-  },
-  bindGenderChange: function (e) {
-    let that = this
-    this.setData({
-      gender: that.data.genderList[e.detail.value]
-    })
-  },
-  btnSave: function () {
-    var sex;
-    let that = this;
-    wx.showLoading({
-      title: '加载中...',
-    })
-    if (!that.data.name) {
-      wx.showToast({
-        title: '请输入姓名',
-        icon: 'none'
-      });
-      return;
-    }
-    if (!that.data.phone) {
-      wx.showToast({
-        title: '请输入手机号码',
-        icon: 'none'
-      });
-      return;
-    }
-    if (!that.data.gender) {
-      wx.showToast({
-        title: '请选择性别',
-        icon: 'none'
-      });
-      return;
-    } else {
-      if (that.data.gender == "男") {
-        sex = 1;
-      } else {
-        sex = 2;
-      }
-    }
-    var uuid = wx.getStorageSync('openId')
-    wx.showLoading({
-      title: '加载中...',
-    });
-    userInfo.btnSave({
-      uuid: uuid,
-      name: that.data.name,
-      gender: sex,
-      phone: that.data.phone,
-    }, (res) => {
-      wx.switchTab({
-        url: '/pages/patient/index',
-      })
     });
   },
   /**

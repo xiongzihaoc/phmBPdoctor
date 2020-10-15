@@ -3,13 +3,17 @@ class Patient extends Comm {
   constructor() {
     super();
   }
-  getManufacturerList(callback) {
+  getManufacturerList(pageNum, pageSize,stime,etime, callback) {
     let openId = wx.getStorageSync('openId')
     let props = {
       url: "/api/vendor/getUserFeedback",
       contentType: 'application/json',
       data: {
-        "createBy":openId
+        "createBy": openId,
+        "createTime":stime,
+        "endTime":etime,
+        "pageNum": pageNum,
+        "pageSize": pageSize
       },
       sCallBack: res => {
         wx.hideLoading();

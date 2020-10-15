@@ -4,18 +4,22 @@ class Matter extends Comm {
     super();
   }
   // 问题记录 历史
-  getMatterInfo(patientUuid,createTime,endTime,callback) {
+  getMatterInfo(pageNum, pageSize, createTime, endTime, callback) {
+    var patientUuid = wx.getStorageSync('patientUuid')
     let props = {
       url: "/api/getPatientMatter",
       contentType: 'application/json',
       data: {
         "patientUuid": patientUuid,
         "createTime": createTime,
-        "endTime": endTime
+        "endTime": endTime,
+        "pageNum": pageNum,
+        "pageSize": pageSize,
+
       },
       sCallBack: res => {
         wx.hideLoading();
-        callback(res.data);
+        callback(res);
       },
       eCallBack: err => {
         wx.hideLoading();

@@ -8,6 +8,8 @@ Page({
    */
   data: {
     packagesList: [],
+    editIndex: 0,
+    editList: {},
   },
   // 添加问卷
   addWenjuan: function () {
@@ -24,8 +26,6 @@ Page({
   edit: function (e) {
     let that = this
     var index = e.currentTarget.dataset.info
-    console.log(index);
-
     var editTac = that.data.packagesList[index]
     wx.navigateTo({
       url: '/pages/patient/patientDetail/set/addWenjuan/add/add?editId=' + "1&editIndex=" + index,
@@ -98,8 +98,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this
-    console.log(this.data.packagesList);
 
   },
 

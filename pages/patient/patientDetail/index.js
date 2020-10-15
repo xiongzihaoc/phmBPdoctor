@@ -1,5 +1,7 @@
 // pages/patientDetail/index.js
 var utils = require("../../../utils/util.js");
+import { TimUtils } from "../../../utils/TimUtils.js"
+const timUtils = new TimUtils();
 import { Matter, UserInfo, Maint, FollowMore } from "./index.modle"
 let MatterInfo = new Matter();
 let userInfo = new UserInfo();
@@ -94,11 +96,22 @@ Page({
   },
   // 跳转发送消息
   sendMessage: function () {
-    wx.switchTab(
-      {
-        url: "/pages/message/index",
+    var tencentImUser = this.data.userInfo.tencentImUser;
+    console.log(tencentImUser);
+    var conversationID = '';
+    timUtils.getConversationList((data) => {
+      console.log(data);
+      if (data != null && data.length > 0) {
+        data.forEach(element => {
+          if (tencentImUser == element.userProfile.userID) {
+            conversationID = element.conversationID;
+          }
+        });
+        wx.navigateTo({
+          url: '/pages/message/chat/chat?conversationID=' + conversationID + "&userId=" + tencentImUser,
+        });
       }
-    )
+    })
   },
   // 跳转到问卷设置
   setWenjuan: function () {

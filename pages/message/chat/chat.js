@@ -35,7 +35,9 @@ Page({
     },
     isStartVoice:false,
     voiceStartImgIndex:1,
-    playingVoiceIndex:-1
+    playingVoiceIndex:-1,
+    headerUrl:'',
+    userHeaderUrl:''
   },
   preViewImg:function(e){
     var url = utils.getDataSet(e,"url");
@@ -151,6 +153,21 @@ Page({
     this.setData({
       conversationID:options.conversationID,
       userId:options.userId
+    });
+    timUtils.getTimUserInfo((res)=>{
+      console.log(res);
+      then.setData({
+        headerUrl:res.avatar
+      });
+    });
+    var userList=[];
+    userList.push(this.data.userId);
+    timUtils.getUserProfile(userList,(res)=>{
+      then.setData({
+        userHeaderUrl:res[0].avatar
+      });
+      console.log(that.data.userHeaderUrl);
+      
     });
     timUtils.setMessageRead(this.data.conversationID,(data)=>{
       console.log("设置消息已读");

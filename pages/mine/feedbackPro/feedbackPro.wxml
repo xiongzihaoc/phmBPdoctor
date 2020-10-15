@@ -7,30 +7,21 @@
         <view>
           <text>品牌</text>
         </view>
-        <view class="brand_box">
-          <picker bindchange="bindManufacturerChange" value="{{ManufacturerName}}" range="{{ManufacturerList}}"
-            range-key="name">
+        <view class="brand_box" style="width：500rpx">
+          <picker style="width:500rpx;text-align:right;" bindchange="bindManufacturerChange"
+            value="{{ManufacturerName}}" range="{{ManufacturerList}}" range-key="name">
             <view class="user_info_sex fontColor">{{ManufacturerName}}</view>
           </picker>
           <image src="/images/Rjt_ccc.png"></image>
         </view>
       </view>
       <!-- 型号 -->
-      <view class="model">
+      <view class="model" bindtap="selectType">
         <view>
           <text>型号</text>
         </view>
         <view class="model_box">
-          <!-- <picker bindchange="bindInstrumentChange" disabled="{{instrDisabled}}" value="{{InstrumentName}}"
-            range="{{InstrumentList}}" range-key="name">
-            <view class="user_info_sex fontColor">{{InstrumentName}}</view>
-          </picker> -->
-          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
-            value="{{multiIndex}}" range="{{multiArray}}">
-            <view class="picker">
-              {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
-            </view>
-          </picker>
+          <view class="user_info_sex fontColor" style="font-weight:700">{{insname}}</view>
           <image src="/images/Rjt_ccc.png"></image>
         </view>
       </view>
@@ -48,14 +39,41 @@
   <!-- 图片 -->
   <view class="image_box">
     <view class="productInformation_title fontWeight">图片</view>
-    <view class="uploadImg uploadReplayImg">
-				<block wx:for="{{imageList}}" wx:key="index">
-					<image class="replayImg" src="{{item}}"></image>
-				</block>
-				<view class="uploadIcon" bindtap="upload">
-					<view class="iconfont iconzhaoxiangji" style="font-size:40rpx"></view>
-				</view>
-			</view>
+    <view class='picVideoList'>
+      <view class='picItem' wx:for="{{tempData}}" wx:for-item="temp" wx:key="url">
+          <image src='{{temp["url"]}}' mode='aspectFill'></image>
+          <view class='LoadBox' wx:if="{{setState==0}}">
+              <text>{{temp["progress"]}}%</text>
+              <view class='loading'>
+                  <view class='loadingColor' style='width:{{temp["progress"]}}%'></view>
+              </view>
+          </view>
+          <image class='delPic' wx:if="{{setState==1}}" data-index='{{index}}' catchtap='delPic' src='/images/icon_picDel.png'></image>
+      </view>
+      <view class='picItem' bindtap='uploadPic' wx:if="{{picNum<9}}">
+          <image src='/images/uploadPic.png'></image>
+      </view>
+  </view>
   </view>
   <view class="btnSave" bindtap="btnSave">保存</view>
 </view>
+<!-- 时间选择 -->
+<l-popup show="{{searchTimerPopupShow}}" content-align="bottom">
+		<view class="popup_box">
+			<view class="popup_header">
+				<text class="clear" bindtap="clear">取消</text>
+				<text class="done" bindtap="done">确定</text>
+      </view>
+      <view class="popup_type_pick">
+				<picker-view indicator-style="height: 100rpx;" style="width: 100%; height: 400rpx;" value="{{value}}" bindchange="bindchange">
+					<picker-view-column>
+						<view wx:for="{{InstrumentList}}" wx:key="id" style="display:flex;align-items: center;justify-content: center;">{{item.name}}</view>
+					</picker-view-column>
+					<picker-view-column>
+						<view wx:for="{{modleList}}" wx:key="id" style="display:flex;align-items: center;justify-content: center;">{{item.model}}
+						</view>
+					</picker-view-column>
+      </picker-view>
+      </view>
+    </view>
+	</l-popup>

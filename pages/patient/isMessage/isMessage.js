@@ -8,6 +8,7 @@ Page({
  * 页面的初始数据
  */
   data: {
+    userType: "",
     date: "",
     dictLabel: "请选择",
     dictValue: "",
@@ -15,13 +16,21 @@ Page({
     ManufacturerValue: "",
     InstrumentName: "请选择",
     InstrumentValue: "",
+    doctorName: "请选择",
+    doctorValue: "",
     instrDisabled: true,
     instrCondition: "",
     messObj: {},
+    DoctortList: [],
     MethodList: [],
     InstrumentList: [],
     ManufacturerList: [],
-    prepuce_method: "prepuce_method"
+    prepuce_method: "prepuce_method",
+    // 是否维护信息
+    isOperationRecord: "",
+    // 是否绑定医生
+    isBindingDoctor: ""
+
   },
 
   // 获取所有患者列表
@@ -29,6 +38,7 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中...',
+      icon: "none",
     });
     patientInfo.getUserInfo(this.data.messObj, (res) => {
       console.log(res);
@@ -39,6 +49,7 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中...',
+      icon: "none",
     });
     patientInfo.getMethodList(that.data.prepuce_method, (res) => {
       console.log(res)
@@ -53,6 +64,7 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中...',
+      icon: "none",
     });
     patientInfo.getManufacturerList((res) => {
       console.log(res);
@@ -66,11 +78,26 @@ Page({
     let that = this
     wx.showLoading({
       title: '加载中...',
+      icon: "none",
     });
     patientInfo.getInstrumentList(that.data.ManufacturerValue, (res) => {
       console.log(res);
       that.setData({
         InstrumentList: res.data
+      })
+    });
+  },
+  // 获取医生列表
+  getDoctorList: function () {
+    let that = this
+    wx.showLoading({
+      title: '加载中...',
+      icon: "none",
+    });
+    patientInfo.getDoctorList((res) => {
+      console.log(res);
+      that.setData({
+        DoctortList: res.data
       })
     });
   },
@@ -109,6 +136,17 @@ Page({
       InstrumentValue: that.data.InstrumentList[InstrumentIndex].id
     })
   },
+  // 选择管理医生
+  bindDoctor: function (e) {
+    console.log(e);
+    let that = this
+    let MethodIndex = e.detail.value
+    console.log(that.data.DoctortList[MethodIndex].doctorName);
+    that.setData({
+      doctorName: that.data.DoctortList[MethodIndex].doctorName,
+      doctorValue: that.data.DoctortList[MethodIndex].doctorUuid
+    })
+  },
   // 输入器械建议
   bindCondition: function (e) {
     let that = this
@@ -118,34 +156,93 @@ Page({
       instrCondition: e.detail.value
     })
   },
+  // 如果未选择品牌就选择类型提示
+  bindInstrument: function () {
+    let that = this
+    if (that.data.ManufacturerName == "请选择") {
+      wx.showToast({
+        title: '请选择品牌',
+        icon: "none"
+      })
+      return
+    }
+  },
   btnSave: function () {
+    // 医生账户医生的id
     let docUuid = wx.getStorageSync('openId')
+    // 护士账户判断
+    let accountType = wx.getStorageSync('accountType')
+    // 患者id
     let patientUuid = wx.getStorageSync('patientUuid')
     let that = this
-    let messageObj = {
-      uuid: patientUuid,
-      doctoruuid: docUuid,
-      prepuceOperateTime: that.data.date,
-      prepuceOperateMethod: that.data.dictValue,
-      feedbackContent: that.data.instrCondition,
-      vendorId: that.data.ManufacturerValue,
-      goodsModelId: that.data.InstrumentValue,
+    if (this.data.doctorValue == "") {
+      wx.showToast({
+        title: '请选择管理医生',
+        icon: "none",
+      })
+      return
+    } else if (this.data.ManufacturerValue == "") {
+      wx.showToast({
+        title: '请选择器械品牌',
+        icon: "none",
+      })
+      return
     }
-    wx.showLoading({
-      title: '加载中...',
-    });
-    patientInfo.btnSave(messageObj,(res) => {
-    });
+    else if (this.data.dictValue == "") {
+      wx.showToast({
+        title: '请选择手术方式',
+        icon: "none",
+      })
+      return
+    } else if (this.data.InstrumentValue == "") {
+      wx.showToast({
+        title: '请选择器械类型',
+        icon: "none",
+      })
+      return
+    } else {
+      let messageObj = {
+        uuid: patientUuid,
+        doctoruuid: docUuid,
+        prepuceOperateTime: that.data.date,
+        prepuceOperateMethod: that.data.dictValue,
+        feedbackContent: that.data.instrCondition,
+        vendorId: that.data.ManufacturerValue,
+        goodsModelId: that.data.InstrumentValue,
+      }
+      if (accountType == 0) {
+        messageObj.doctoruuid = that.data.doctorValue
+      }
+      wx.showLoading({
+        title: '加载中...',
+      });
+      patientInfo.btnSave(messageObj, (res) => {
+        wx.redirectTo({
+          url: '/pages/patient/patientDetail/index?id=' + patientUuid,
+        })
+      });
+
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let userType = wx.getStorageSync('accountType')
     let time = getCurrentDate.getCurrentDate()
+    if (options.isBindingDoctor == 1) {
+      this.setData({
+        doctorName: options.doctorName,
+      })
+    }
     this.setData({
-      date: time
+      isBindingDoctor: options.isBindingDoctor,
+      isOperationRecord: options.isOperationRecord,
+      date: time,
+      userType: userType
     })
     this.getMethodList()
+    this.getDoctorList()
     this.getManufacturerList()
   },
 

@@ -2,6 +2,8 @@
   <!-- 起始时间 结束时间 -->
   <view class="weui-search-bar">
     <view class="weui-search-bar__form">
+      <!-- 清除图标 -->
+      <text wx:if="{{closeIconShow}}" bindtap="closeIcon" class="iconfont iconclose closeIcon"></text>
       <!-- 搜索框 -->
       <view class="weui-search-bar__box searchInput" bindtap="selectTimer">
         <icon class="weui-icon-search_in-box" type="search" size="24"></icon>
@@ -16,7 +18,7 @@
       <text class="fontWeight quesRecord maintainRecord">反馈历史</text>
     </view>
     <!-- 循环卡片 -->
-    <block wx:for="{{ManufacturerList}}" wx:key="id">
+    <block wx:for="{{ManufacturerList}}" wx:key="item">
       <view class="report" style="margin-bottom:20rpx">
         <block wx:if="{{item.status == 1}}">
           <text class="checkDetail" data-id="{{item.id}}" bindtap="checkDetail">查看详情</text>
@@ -43,8 +45,8 @@
           <text class="fontWeight">{{item.createTime}}</text>
         </view>
         <view class="questionImg">
-          <block wx:if="{{item.photoList.length > 0}}" wx:for="{{item.photoList}}" wx:for-item="subItem" wx:key="id">
-            <image src="{{subItem.photoUrl}}" bindtap="preViewImage" data-url="{{subItem.photoUrl}}"></image>
+          <block wx:for="{{item.photoList}}" wx:for-item="subItem" wx:key="index">
+            <image wx:if="{{subItem.photoUrl}}" src="{{subItem.photoUrl}}" bindtap="preViewImage" data-url="{{subItem.photoUrl}}"></image>
           </block>
         </view>
       </view>
@@ -52,6 +54,8 @@
     <view>
     </view>
   </view>
+  <loadmore show="{{loadmoreShow}}" type="{{loadmoreType}}" loading-text="加载中,请稍后..." end-text="我是有底线的" line="{{true}}">
+  </loadmore>
   <!-- 时间模态框 -->
   <l-popup show="{{searchTimerPopupShow}}" content-align="bottom">
     <view class="popup_box">
