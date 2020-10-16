@@ -31,9 +31,6 @@ Page({
     });
     userInfo.getUserInfo(this.data.patientId, (res) => {
       console.log(res);
-      if(res.tencentGroupMember != null && res.tencentGroupMember != ''){
-        wx.setStorageSync('groupMember', res.tencentGroupMember);
-      }
       this.setData({
         patientUuid: res.uuid,
         userInfo: res
@@ -98,6 +95,8 @@ Page({
   },
   // 跳转发送消息
   sendMessage: function () {
+    let that = this;
+    var userInfo = this.data.userInfo;
     var tencentImUser = this.data.userInfo.tencentImUser;
     console.log(tencentImUser);
     var conversationID = '';
@@ -105,12 +104,12 @@ Page({
       console.log(data);
       if (data != null && data.length > 0) {
         data.forEach(element => {
-          if (tencentImUser == element.userProfile.userID) {
+          if (element.groupProfile != null && userInfo.tencentGroupMember == element.groupProfile.groupID) {
             conversationID = element.conversationID;
           }
         });
         wx.navigateTo({
-          url: '/pages/message/chat/chat?conversationID=' + conversationID + "&userId=" + tencentImUser+"&groupMember="+wx.getStorageSync('groupMember'),
+          url: '/pages/message/chat/chat?conversationID=' + conversationID + "&userId=" + userInfo.tencentGroupMember,
         });
       }
     })
