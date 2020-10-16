@@ -31,7 +31,9 @@ Page({
     });
     userInfo.getUserInfo(this.data.patientId, (res) => {
       console.log(res);
-
+      if(res.tencentGroupMember != null && res.tencentGroupMember != ''){
+        wx.setStorageSync('groupMember', res.tencentGroupMember);
+      }
       this.setData({
         patientUuid: res.uuid,
         userInfo: res
@@ -108,7 +110,7 @@ Page({
           }
         });
         wx.navigateTo({
-          url: '/pages/message/chat/chat?conversationID=' + conversationID + "&userId=" + tencentImUser,
+          url: '/pages/message/chat/chat?conversationID=' + conversationID + "&userId=" + tencentImUser+"&groupMember="+wx.getStorageSync('groupMember'),
         });
       }
     })
