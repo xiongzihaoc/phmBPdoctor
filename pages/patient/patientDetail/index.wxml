@@ -8,7 +8,7 @@
 			</view>
 			<view style="margin-left:30rpx;height:120rpx">
 				<text class="patientName">{{userInfo.name}}</text>
-				<text  class="patientName_ques" style="margin-top:20rpx">联系号码: {{userInfo.phone}}</text>
+				<text class="patientName_ques" style="margin-top:20rpx">联系号码: {{userInfo.phone}}</text>
 			</view>
 		</view>
 		<view class="userInfoRight">
@@ -65,11 +65,11 @@
 				</view>
 				<view style="margin-left:30rpx;">
 					<view class="isFinish">
-						<text >未完成问卷：</text>
+						<text>未完成问卷：</text>
 						<text class="fontWeight">{{isFinsh.unfinish}}</text>
 					</view>
 					<view class="isFinish">
-						<text >已完成问卷：</text>
+						<text>已完成问卷：</text>
 						<text class="fontWeight">{{isFinsh.finish}}</text>
 					</view>
 				</view>
@@ -99,11 +99,11 @@
 				</view>
 				<view style="margin-left:30rpx;">
 					<view class="isFinish">
-						<text >换药时间：</text>
+						<text>换药时间：</text>
 						<text class="fontWeight">{{MaintList.actualTime}}</text>
 					</view>
 					<view class="isFinish">
-						<text >换药方式：</text>
+						<text>换药方式：</text>
 						<text class="fontWeight">{{MaintList.hospital}}</text>
 					</view>
 				</view>
@@ -113,5 +113,7 @@
 		</view>
 	</view>
 	<view class="sendMessage" style="margin-top: 20rpx;margin-bottom: 20rpx" bindtap="sendMessage">发信息</view>
-	<view class="removeBinding" bindtap="removeBinding">解除绑定</view>
+	<block wx:if="{{accountType != 0}}">
+		<view class="removeBinding" bindtap="removeBinding">解除绑定</view>
+	</block>
 </view>

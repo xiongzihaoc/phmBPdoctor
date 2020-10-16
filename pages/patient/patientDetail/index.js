@@ -22,6 +22,7 @@ Page({
     Matter: {},
     MaintList: {},
     isFinsh: {},
+    accountType:"",
     patientUuid: "",
   },
   // 获取患者个人信息
@@ -174,7 +175,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let type = wx.getStorageSync('accountType')
     this.setData({
+      accountType: type,
       patientId: options.id,
       id: options.id,
       reportId: options.id,
