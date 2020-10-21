@@ -6,8 +6,8 @@ const urls = {
 const Config = {
   mode: "test",
   baseUrl: urls["test"],
-  // staticUrl: "https://www.phmzykj.com/bp",
-  staticUrl: "https://192.168.0.109:8087/bp",
+  staticUrl: "https://www.phmzykj.com/bp",
+  // staticUrl: "https://192.168.0.109:8087/bp",
   key: "BYHBZ-FV5C4-K6RUC-XCZFN-YYE2E-PDFPN",
   version: "1.0.0"
 }

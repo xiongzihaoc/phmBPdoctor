@@ -22,7 +22,7 @@ Page({
     Matter: {},
     MaintList: {},
     isFinsh: {},
-    accountType:"",
+    accountType: "",
     patientUuid: "",
   },
   // 获取患者个人信息
