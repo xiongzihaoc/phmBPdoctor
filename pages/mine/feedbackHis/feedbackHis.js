@@ -49,10 +49,10 @@ Page({
     });
     patientInfo.getManufacturerList(this.data.healthPageNum, this.data.healthPageSize, this.data.startTime, this.data.endTime, (res) => {
       console.log(res);
-      var num = Math.ceil(res.count/that.data.healthPageSize);
+      var num = Math.ceil(res.count / that.data.healthPageSize);
       that.setData({
         ManufacturerList: that.data.ManufacturerList.concat(res.data),
-        healthTotal:num
+        healthTotal: num
       })
     });
   },
@@ -76,7 +76,7 @@ Page({
   },
   // 选择时间
   selectTimer: function () {
-    
+
     if (this.data.startTime == '') {
       this.setData({
         startTime: utils.getCurrentDate(),
@@ -108,7 +108,7 @@ Page({
         searchTimerPopupShow: false,
         healthPageNum: 1,
         healthTotal: 1,
-        ManufacturerList:[]
+        ManufacturerList: []
       });
       this.getManufacturerList()
     }
@@ -209,17 +209,17 @@ Page({
    */
   onReachBottom: function () {
     let that = this;
-    if(this.data.healthTotal > this.data.healthPageNum){
+    if (this.data.healthTotal > this.data.healthPageNum) {
       this.setData({
-        loadmoreShow:true,
-        loadmoreType:"loading",
-        healthPageNum:that.data.healthPageNum+1
+        loadmoreShow: true,
+        loadmoreType: "loading",
+        healthPageNum: that.data.healthPageNum + 1
       });
       this.getManufacturerList();
-    }else {
+    } else {
       this.setData({
-        loadmoreShow:true,
-        loadmoreType:"end"
+        loadmoreShow: true,
+        loadmoreType: "end"
       });
     }
   },

@@ -169,19 +169,21 @@ Page({
       console.log(that.data.userHeaderUrl);
       
     });
-    timUtils.setMessageRead(this.data.conversationID,(data)=>{
-      console.log("设置消息已读");
-      console.log(data);
-    });
-    timUtils.getMessageList(this.data.conversationID,(data,nextReqMessageID,isCompleted)=>{
-      console.log("消息列表");
-      console.log(data);
-      then.setData({
-        nextReqMessageID:nextReqMessageID,
-        isCompleted:isCompleted
+    if(this.data.conversationID != null && this.data.conversationID != ''){
+      timUtils.setMessageRead(this.data.conversationID,(data)=>{
+        console.log("设置消息已读");
+        console.log(data);
       });
-      then.initData(data,false);
-    });
+      timUtils.getMessageList(this.data.conversationID,(data,nextReqMessageID,isCompleted)=>{
+        console.log("消息列表");
+        console.log(data);
+        then.setData({
+          nextReqMessageID:nextReqMessageID,
+          isCompleted:isCompleted
+        });
+        then.initData(data,false);
+      });
+    }
   },
   getMoreMsgList:function(){
     let then = this;

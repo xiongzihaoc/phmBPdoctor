@@ -1,6 +1,8 @@
 //app.js
 var TxTim = require("tim-wx-sdk");
 var TxCos = require("cos-wx-sdk-v5");
+import { AppModle } from "./app_mopdle.js"
+let appModle = new AppModle();
 var tim;
 App({
   data: {
@@ -24,9 +26,16 @@ App({
     this.getSystemInfo();
     this.createTim();
   },
-  createTim:function(){
+  getImAppId:function(){
+    let that = this;
+    // appModle.getAppId((res)=>{
+    //   console.log(res);
+    //   that.createTim(res.data);
+    // });
+  },
+  createTim:function(appid){
     let options = {
-      SDKAppID: 1400413553 // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
+      SDKAppID: 1400437974 // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
     };
     // 创建 SDK 实例，`TIM.create()`方法对于同一个 `SDKAppID` 只会返回同一份实例
     tim = TxTim.create(options); // SDK 实例通常用 tim 表示

@@ -13,7 +13,7 @@ class Patient extends Comm {
         prepuceOperateTime: time,
         prepuceOperateMethod: method,
         vendorId: vendorId,
-        goodsModelId: goodsModelId
+        goodsId: goodsModelId
       },
       sCallBack: res => {
         wx.hideLoading();
@@ -125,7 +125,7 @@ class Patient extends Comm {
         prepuceOperateMethod: messageObj.prepuceOperateMethod,
         feedbackContent: messageObj.feedbackContent,
         vendorId: messageObj.vendorId,
-        goodsModelId: messageObj.goodsModelId,
+        goodsId: messageObj.goodsModelId,
       },
       sCallBack: res => {
         wx.hideLoading();
