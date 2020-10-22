@@ -213,7 +213,7 @@ Page({
       prepuceOperateMethod: that.data.dictValue,
       feedbackContent: that.data.instrCondition,
       vendorId: that.data.ManufacturerValue,
-      goodsModelId: that.data.InstrumentValue,
+      goodsId: that.data.InstrumentValue,
     }
     if (accountType == 0) {
       messageObj.doctoruuid = that.data.doctorValue

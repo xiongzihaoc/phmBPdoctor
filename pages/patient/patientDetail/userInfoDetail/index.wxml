@@ -9,7 +9,7 @@
 	</view>
 	<view class="infoList">
 		<text class="fontWeight">手术日期</text>
-		<text class="fontColor">{{userInfo.brithday == null?'':userInfo.brithday}}</text>
+		<text class="fontColor">{{userInfo.prepuceOperateTime == null?'':userInfo.prepuceOperateTime}}</text>
 	</view>
 	<view class="infoList">
 		<text class="fontWeight">手术方式</text>

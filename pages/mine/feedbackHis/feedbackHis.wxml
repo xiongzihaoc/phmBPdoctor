@@ -38,7 +38,7 @@
         </view>
         <view style=" margin-bottom:20rpx">
           <text>描述：</text>
-          <text class="fontWeight">{{item.content}}</text>
+          <text class="fontWeight">{{item.content == null?'无':item.content}}</text>
         </view>
         <view style=" margin-bottom:20rpx">
           <text>记录时间：</text>
@@ -46,7 +46,8 @@
         </view>
         <view class="questionImg">
           <block wx:for="{{item.photoList}}" wx:for-item="subItem" wx:key="index">
-            <image wx:if="{{subItem.photoUrl}}" src="{{subItem.photoUrl}}" bindtap="preViewImage" data-url="{{subItem.photoUrl}}"></image>
+            <image wx:if="{{subItem.photoUrl}}" src="{{subItem.photoUrl}}" bindtap="preViewImage"
+              data-url="{{subItem.photoUrl}}"></image>
           </block>
         </view>
       </view>
