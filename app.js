@@ -6,18 +6,18 @@ let appModle = new AppModle();
 var tim;
 App({
   data: {
-    iMdata:{},
-    consultMsg:[],
-    consultMsgSync:false,
-    width:0,
+    iMdata: {},
+    consultMsg: [],
+    consultMsgSync: false,
+    width: 0,
   },
-  getTim:function(){
+  getTim: function () {
     return tim;
   },
-  getTxTim:function(){
+  getTxTim: function () {
     return TxTim;
   },
-  setJGJim:function(newjim){
+  setJGJim: function (newjim) {
     jim = newjim;
     console.log("appJim:");
     console.log(jim);
@@ -45,17 +45,17 @@ App({
     // tim.setLogLevel(1); // release 级别，SDK 输出关键信息，生产环境时建议使用
 
     // 注册 COS SDK 插件
-    tim.registerPlugin({'cos-wx-sdk': TxCos});
+    tim.registerPlugin({ 'cos-wx-sdk': TxCos });
   },
-  getSystemInfo:function () {
+  getSystemInfo: function () {
     let that = this;
-    wx.getSystemInfo({  
-      success: function (res) {  
-        var imageWidth = res.windowWidth/2;
+    wx.getSystemInfo({
+      success: function (res) {
+        var imageWidth = res.windowWidth / 2;
         that.data.width = imageWidth;
-        console.log(imageWidth+""+res.windowWidth+""+that.data.width);
+        console.log(imageWidth + "" + res.windowWidth + "" + that.data.width);
       }
-    });  
+    });
   }
 
 })

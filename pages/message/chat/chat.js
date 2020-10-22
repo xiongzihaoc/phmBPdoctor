@@ -112,7 +112,7 @@ Page({
     if(event != null && event.data.length > 0){
       var message = event.data[0];
       var fromUser = message.from;
-      if(fromUser == this.data.userId){
+      // if(fromUser == this.data.doctorIMName){
         if(message.type == "TIMImageElem"){
           var imageArry = message.payload.imageInfoArray;
           for(var j=0;j<imageArry.length;j++){
@@ -137,7 +137,7 @@ Page({
         timUtils.setMessageRead(this.data.conversationID,(data)=>{
           console.log("设置消息已读");
         });
-      }
+      // }
     }
   },
   /**

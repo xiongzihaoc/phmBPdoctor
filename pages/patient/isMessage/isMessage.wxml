@@ -18,7 +18,7 @@
       <block wx:else>
         <view class="infoList">
           <text class="fontWeight">管理医生</text>
-            <view class="user_info_sex fontColor">{{doctorName}}</view>
+          <view class="user_info_sex fontColor">{{doctorName}}</view>
         </view>
       </block>
     </block>
